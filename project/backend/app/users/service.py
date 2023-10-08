@@ -1,4 +1,4 @@
-from utils.repository import AbstractRepository
+from app.utils.repository import AbstractRepository
 
 
 class UserService:

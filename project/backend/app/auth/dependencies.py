@@ -4,16 +4,16 @@ from fastapi import Depends, Request
 from fastapi.params import Cookie
 from jose import JWTError, jwt
 
-from auth.config import config
-from exceptions import (
+from app.auth.config import config
+from app.auth.exceptions import (
     EmailTakenException,
     RefreshTokenNotValid,
     TokenAbsentException,
 )
-from auth.models import RefreshToken
-from auth.schemas import UserAuthRegisterSchema
-from auth.service import RefreshTokenService, UserService
-from users.models import User
+from app.auth.models import RefreshToken
+from app.auth.schemas import UserAuthRegisterSchema
+from app.auth.service import RefreshTokenService, UserService
+from app.users.models import User
 
 
 async def valid_user_create(

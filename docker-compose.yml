@@ -1,0 +1,36 @@
+version: "3.8"
+
+services:
+  db:
+    container_name: postgres_container
+    image: postgres:13.0-alpine
+    environment:
+      - POSTGRES_PASSWORD=123
+      - POSTGRES_USER=postgres
+    networks:
+      - project-network
+    ports:
+      - "2344:5432"
+
+  app:
+    build:
+      context: project/backend
+    env_file:
+      - project/backend/app/.env
+    container_name: fastapi_container
+    restart: always
+    command: [ "deploy/app.sh" ]
+    ports:
+      - "8000:8000"
+    depends_on:
+      - db
+    networks:
+      - project-network
+
+networks:
+    project-network:
+      driver: bridge
+
+volumes:
+    static:
+    media:

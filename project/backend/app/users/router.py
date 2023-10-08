@@ -2,12 +2,12 @@ from typing import Annotated
 
 from fastapi import APIRouter, status, Depends
 
-from auth.dependencies import get_current_user
+from app.auth.dependencies import get_current_user
 
-from users.models import User
-from users.service import UserService
-from users.dependencies import users_service
-from users.schemas import UserSchema
+from app.users.models import User
+from app.users.service import UserService
+from app.users.dependencies import users_service
+from app.users.schemas import UserSchema
 
 router = APIRouter(prefix='/users', tags=['Users'])
 

@@ -5,8 +5,8 @@ from uuid import UUID
 
 from jose import jwt
 
-from auth.config import config
-from auth.service import RefreshTokenService
+from app.auth.config import config
+from app.auth.service import RefreshTokenService
 
 
 

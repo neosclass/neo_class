@@ -3,13 +3,13 @@ from uuid import UUID
 from sqlalchemy import delete, insert, update
 from sqlalchemy.exc import SQLAlchemyError
 
-from exceptions import InvalidCredentialsException
-from auth.models import RefreshToken
-from auth.schemas import UserAuthLoginSchema, UserAuthRegisterSchema
-from auth.security import check_password, hash_password
-from utils.repository import SQLAlchemyRepository
-from database import async_session_maker
-from users.models import User
+from app.auth.exceptions import InvalidCredentialsException
+from app.auth.models import RefreshToken
+from app.auth.schemas import UserAuthLoginSchema, UserAuthRegisterSchema
+from app.auth.security import check_password, hash_password
+from app.utils.repository import SQLAlchemyRepository
+from app.database import async_session_maker
+from app.users.models import User
 
 
 class UserService(SQLAlchemyRepository):

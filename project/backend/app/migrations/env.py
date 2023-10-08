@@ -7,10 +7,10 @@ from sqlalchemy import pool
 
 from alembic import context
 
-from users.models import *
+from app.users.models import *
 
-from config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
-from database import Base
+from app.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
+from app.database import Base
 
 sys.path.insert(0, dirname(dirname(dirname(abspath(__file__)))))
 
