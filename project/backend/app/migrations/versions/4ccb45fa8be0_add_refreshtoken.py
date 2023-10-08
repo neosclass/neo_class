@@ -27,6 +27,32 @@ def upgrade() -> None:
                     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ondelete='CASCADE'),
                     sa.PrimaryKeyConstraint('uuid')
                     )
+    op.create_table('class',
+                    sa.Column('id', sa.Integer(), nullable=False),
+                    sa.Column('name', sa.String(), nullable=False),
+                    sa.Column('description', sa.String(), nullable=False),
+                    sa.Column('created_at', sa.DateTime(), nullable=False),
+                    sa.PrimaryKeyConstraint('id')
+                    )
+    op.create_table('task',
+                    sa.Column('id', sa.Integer(), nullable=False),
+                    sa.Column('name', sa.String(), nullable=False),
+                    sa.Column('id_class', sa.Integer(), nullable=False),
+                    sa.Column('description', sa.String(), nullable=False),
+                    sa.Column('created_at', sa.DateTime(), nullable=False),
+                    sa.Column('file_path', sa.String(), nullable=True),
+                    sa.ForeignKeyConstraint(['id_class'], ['class.id'], ),
+                    sa.PrimaryKeyConstraint('id')
+                    )
+    op.create_table('comment',
+                    sa.Column('id', sa.Integer(), nullable=False),
+                    sa.Column('text', sa.String(), nullable=False),
+                    sa.Column('id_class', sa.Integer(), nullable=False),
+                    sa.Column('created_at', sa.DateTime(), nullable=False),
+                    sa.Column('file_path', sa.String(), nullable=True),
+                    sa.ForeignKeyConstraint(['id_class'], ['class.id'], ),
+                    sa.PrimaryKeyConstraint('id')
+                    )
 
 
 def downgrade() -> None:
