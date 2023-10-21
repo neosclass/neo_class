@@ -1,26 +1,28 @@
 from datetime import datetime
 
 from sqlalchemy import (
-    TIMESTAMP,
-    Boolean,
-    Column,
-    Integer,
     LargeBinary,
-    String,
+    text,
 )
 
 from app.database import Base
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
+from app.classes.models import Class
+
+from app.associative_tables.user_class import user_class
 
 
 class User(Base):
     __tablename__ = 'user'
 
-    id = Column(Integer, primary_key=True)
-    email = Column(String(length=254), nullable=False)
-    name = Column(String(length=254), nullable=False)
-    surname = Column(String(length=254), nullable=False)
-    phone_number = Column(String)
+    id: Mapped[int] = mapped_column(primary_key=True, nullable=False)
+    password: Mapped[str] = mapped_column(LargeBinary, nullable=False)
+    email: Mapped[str] = mapped_column(nullable=False)
+    registered_at: Mapped[datetime] = mapped_column(server_default=text("TIMEZONE('utc', now())"))
+    name: Mapped[str] = mapped_column(nullable=False)
+    surname: Mapped[str] = mapped_column(nullable=False)
+    is_admin: Mapped[bool] = mapped_column(default=False, nullable=False)
 
-    registered_at = Column(TIMESTAMP, default=datetime.utcnow, nullable=False)
-    password = Column(LargeBinary, nullable=False)
-    is_admin = Column(Boolean, default=False, nullable=False)
+    class_id: Mapped[list['Class']] = relationship(secondary='user_class',
+                                                   back_populates='user_id')

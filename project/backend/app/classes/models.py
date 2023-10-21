@@ -1,44 +1,51 @@
 from datetime import datetime
 
 from sqlalchemy import (
-    TIMESTAMP,
-    Column,
-    Integer,
-    String,
-    ForeignKey,
+    ForeignKey, text,
 )
 
 from app.database import Base
-from sqlalchemy.orm import relationship
+from sqlalchemy.orm import relationship, Mapped, mapped_column
+
+from app.associative_tables.user_class import user_class
 
 
 class Class(Base):
     __tablename__ = 'class'
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String(length=254), nullable=False)
-    description = Column(String(length=254), nullable=False)
-    created_at = Column(TIMESTAMP, default=datetime.utcnow, nullable=False)
+    id: Mapped[int] = mapped_column(primary_key=True, nullable=False)
+    created_by: Mapped[int] = mapped_column(ForeignKey('user.id', ondelete='CASCADE'))
+    title: Mapped[str] = mapped_column(nullable=False)
+    description: Mapped[str] = mapped_column(nullable=False)
+    created_at: Mapped[datetime] = mapped_column(server_default=text("TIMEZONE('utc', now())"))
+    updated_at: Mapped[datetime] = mapped_column(server_default=text("TIMEZONE('utc', now())"),
+                                                 onupdate=datetime.now)
+
+    user_id: Mapped[list['User']] = relationship(secondary='user_class',
+                                                 back_populates='class_id')
+
+    task: Mapped[list['Task']] = relationship()
 
 
 class Task(Base):
     __tablename__ = 'task'
 
-    id = Column(Integer, primary_key=True)
-    name = Column(String(length=254), nullable=False)
-    id_class = Column(ForeignKey('class.id'), nullable=False)
-    description = Column(String(length=254), nullable=False)
-    created_at = Column(TIMESTAMP, default=datetime.utcnow, nullable=False)
-    file_path = Column(String(length=600))
+    id: Mapped[int] = mapped_column(primary_key=True, nullable=False)
+    class_id: Mapped[int] = mapped_column(ForeignKey('class.id'))
+    title: Mapped[str] = mapped_column(nullable=False)
+    description: Mapped[str] = mapped_column(nullable=False)
+    created_at: Mapped[datetime] = mapped_column(server_default=text("TIMEZONE('utc', now())"))
 
-    comments = relationship('Comment', backref='post', cascade='all, delete')
+    comments: Mapped[list['Comment']] = relationship()
 
 
 class Comment(Base):
     __tablename__ = 'comment'
 
-    id = Column(Integer, primary_key=True)
-    text = Column(String(400))
-    file_path = Column(String(length=600))
-    created_at = Column(TIMESTAMP, default=datetime.utcnow, nullable=False)
-    id_class = Column(Integer, ForeignKey('class.id'))
+    id: Mapped[int] = mapped_column(primary_key=True, nullable=False)
+    user_id: Mapped[int] = mapped_column(ForeignKey('user.id', ondelete='CASCADE'))
+    task_id: Mapped[int] = mapped_column(ForeignKey('task.id'))
+    data: Mapped[str] = mapped_column(nullable=False)
+    created_at: Mapped[datetime] = mapped_column(server_default=text("TIMEZONE('utc', now())"), nullable=False)
+    updated_at: Mapped[datetime] = mapped_column(server_default=text("TIMEZONE('utc', now())"),
+                                                 onupdate=datetime.now)
