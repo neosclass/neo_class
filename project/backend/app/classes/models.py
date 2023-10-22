@@ -7,8 +7,6 @@ from sqlalchemy import (
 from app.database import Base
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
-from app.associative_tables.user_class import user_class
-
 
 class Class(Base):
     __tablename__ = 'class'
@@ -21,8 +19,7 @@ class Class(Base):
     updated_at: Mapped[datetime] = mapped_column(server_default=text("TIMEZONE('utc', now())"),
                                                  onupdate=datetime.now)
 
-    user_id: Mapped[list['User']] = relationship(secondary='user_class',
-                                                 back_populates='class_id')
+    users: Mapped[list["User_Class"]] = relationship(back_populates="my_class")
 
     task: Mapped[list['Task']] = relationship()
 
