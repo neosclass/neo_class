@@ -12,24 +12,24 @@ from app.classes.schemas import ClassSchema
 router = APIRouter(prefix='/classes', tags=['Classes'])
 
 
-@router.post('/create', status_code=status.HTTP_201_CREATED)
+@router.post('/create', status_code=status.HTTP_201_CREATED, response_model=ClassSchema)
 async def create_class(title: str, description: str, class_service: Annotated[ClassService, Depends(class_service)],
                        user: User = Depends(get_current_user)):
     result = await class_service.create_class(user_id=user.id, description=description, title=title)
     return result
 
 
-@router.get('/get/{class_id}', status_code=status.HTTP_200_OK)
+@router.get('/get/{class_id}', status_code=status.HTTP_200_OK, response_model=ClassSchema)
 async def get_class(class_id: int, class_service: Annotated[ClassService, Depends(class_service)],
-                    user: User = Depends(get_current_user)) -> ClassSchema:
+                    user: User = Depends(get_current_user)):
     class_user = await class_service.get_class(class_id)
     return class_user
 
 
-@router.put('/update/{class_id}', status_code=status.HTTP_201_CREATED)
+@router.put('/update/{class_id}', status_code=status.HTTP_201_CREATED, response_model=ClassSchema)
 async def update_class(title: str, description: str, class_id: int,
                        class_service: Annotated[ClassService, Depends(class_service)],
-                       user: User = Depends(get_current_user)) -> ClassSchema:
+                       user: User = Depends(get_current_user)):
     update_class_user = await class_service.update_class(class_id=class_id, title=title, description=description)
     return update_class_user
 

@@ -10,3 +10,6 @@ class ClassSchema(BaseModel):
     title: str
     created_at: datetime
     updated_at: datetime
+
+    class Config:
+        orm_mode = True

@@ -18,6 +18,14 @@ class AbstractRepository(ABC):
     async def create(self):
         raise NotImplementedError
 
+    @abstractmethod
+    async def update(self):
+        raise NotImplementedError
+
+    @abstractmethod
+    async def delete(self):
+        raise NotImplementedError
+
 
 class SQLAlchemyRepository(AbstractRepository):
     model = None
@@ -39,10 +47,12 @@ class SQLAlchemyRepository(AbstractRepository):
     @classmethod
     async def create(cls, **data):
         async with async_session_maker() as session:
-            query = insert(cls.model).values(**data).returning(cls.model)
+            query = (
+                insert(cls.model).values(**data).returning(cls.model)
+            )
             result = await session.execute(query)
             await session.commit()
-            return result.mappings().first()
+            return result.scalars().first()
 
     @classmethod
     async def update(cls, id: int, **update_data):
@@ -52,7 +62,7 @@ class SQLAlchemyRepository(AbstractRepository):
             )
             result = await session.execute(stmt)
             await session.commit()
-            return result.mappings().first()
+            return result.scalars().first()
 
     @classmethod
     async def delete(cls, id: int):
@@ -63,4 +73,3 @@ class SQLAlchemyRepository(AbstractRepository):
 
             await session.execute(stmt)
             await session.commit()
-
