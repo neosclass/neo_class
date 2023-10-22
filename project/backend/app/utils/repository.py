@@ -1,6 +1,6 @@
 from abc import ABC, abstractmethod
 
-from sqlalchemy import (insert, select)
+from sqlalchemy import (insert, select, update, delete)
 
 from app.database import async_session_maker
 
@@ -43,3 +43,24 @@ class SQLAlchemyRepository(AbstractRepository):
             result = await session.execute(query)
             await session.commit()
             return result.mappings().first()
+
+    @classmethod
+    async def update(cls, id: int, **update_data):
+        async with async_session_maker() as session:
+            stmt = (
+                update(cls.model).where(cls.model.id == id).values(**update_data).returning(cls.model)
+            )
+            result = await session.execute(stmt)
+            await session.commit()
+            return result.mappings().first()
+
+    @classmethod
+    async def delete(cls, id: int):
+        async with async_session_maker() as session:
+            stmt = (
+                delete(cls.model).where(cls.model.id == id)
+            )
+
+            await session.execute(stmt)
+            await session.commit()
+
