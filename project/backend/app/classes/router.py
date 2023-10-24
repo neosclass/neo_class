@@ -12,7 +12,13 @@ from app.classes.schemas import ClassSchema
 router = APIRouter(prefix='/classes', tags=['Classes'])
 
 
-@router.post('/create', status_code=status.HTTP_201_CREATED, response_model=ClassSchema)
+# @router.post('/create', status_code=status.HTTP_201_CREATED, response_model=ClassSchema)
+# async def create_class(title: str, description: str, class_service: Annotated[ClassService, Depends(class_service)],
+#                        user: User = Depends(get_current_user)):
+#     result = await class_service.create_class(user_id=user.id, description=description, title=title)
+#     return result
+
+@router.post('/create', status_code=status.HTTP_201_CREATED)
 async def create_class(title: str, description: str, class_service: Annotated[ClassService, Depends(class_service)],
                        user: User = Depends(get_current_user)):
     result = await class_service.create_class(user_id=user.id, description=description, title=title)

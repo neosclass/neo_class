@@ -8,7 +8,7 @@ from sqlalchemy import (
 from app.database import Base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.associative_tables.user_class import User_Class
+from app.associative_tables.user_class import user_class
 
 
 class User(Base):
@@ -22,4 +22,4 @@ class User(Base):
     surname: Mapped[str] = mapped_column(nullable=False)
     is_admin: Mapped[bool] = mapped_column(default=False, nullable=False)
 
-    classes: Mapped[list["User_Class"]] = relationship(back_populates="my_user")
+    classes: Mapped[list["Class"]] = relationship(secondary=user_class, lazy="selectin")

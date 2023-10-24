@@ -6,7 +6,7 @@ class ClassService:
         self.class_repo: AbstractRepository = users_repo()
 
     async def create_class(self, user_id: int, description: str, title: str):
-        user_class = await self.class_repo.create(created_by=user_id, description=description, title=title)
+        user_class = await self.class_repo.create_class(user_id=user_id, created_by=user_id, description=description, title=title)
         return user_class
 
     async def get_class(self, class_id: int):

@@ -19,7 +19,7 @@ class Class(Base):
     updated_at: Mapped[datetime] = mapped_column(server_default=text("TIMEZONE('utc', now())"),
                                                  onupdate=datetime.now)
 
-    users: Mapped[list["User_Class"]] = relationship(back_populates="my_class")
+    #users: Mapped[list["User_Class"]] = relationship(back_populates="my_class")
 
     task: Mapped[list['Task']] = relationship()
 
