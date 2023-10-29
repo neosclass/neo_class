@@ -8,6 +8,6 @@ from app.database import Base
 user_class = Table(
     "user_class",
     Base.metadata,
-    Column("user_id", ForeignKey("user.id")),
-    Column("class_id", ForeignKey("class.id")),
+    Column("user_id", ForeignKey("user.id", ondelete='CASCADE')),
+    Column("class_id", ForeignKey("class.id", ondelete='CASCADE')),
 )

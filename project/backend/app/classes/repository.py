@@ -28,3 +28,18 @@ class ClassRepository(SQLAlchemyRepository):
 
 class TaskRepository(SQLAlchemyRepository):
     model = Task
+
+    @classmethod
+    async def create_task(cls, class_id: int, **data):
+        async with async_session_maker() as session:
+            this_class = select(Class).filter_by(id=class_id)
+            result = await session.execute(this_class)
+            result = result.scalars().first()
+
+            this_task = Task(**data)
+
+            result.tasks.append(this_task)
+            await session.commit()
+
+            return this_task
+

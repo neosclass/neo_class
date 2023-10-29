@@ -13,3 +13,22 @@ class ClassSchema(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class TaskSchema(BaseModel):
+    id: int
+    class_id: int
+    title: str
+    description: str
+    created_at: datetime
+    updated_at: datetime
+
+    class Config:
+        orm_mode = True
+
+
+class SuccessDelete(BaseModel):
+    success: bool
+
+    class Config:
+        orm_mode = True

@@ -19,21 +19,21 @@ class Class(Base):
     updated_at: Mapped[datetime] = mapped_column(server_default=text("TIMEZONE('utc', now())"),
                                                  onupdate=datetime.now)
 
-    #users: Mapped[list["User_Class"]] = relationship(back_populates="my_class")
-
-    task: Mapped[list['Task']] = relationship()
+    tasks: Mapped[list['Task']] = relationship(lazy="selectin", cascade="all, delete", passive_deletes=True)
 
 
 class Task(Base):
     __tablename__ = 'task'
 
     id: Mapped[int] = mapped_column(primary_key=True, nullable=False)
-    class_id: Mapped[int] = mapped_column(ForeignKey('class.id'))
+    class_id: Mapped[int] = mapped_column(ForeignKey('class.id', ondelete='CASCADE'))
     title: Mapped[str] = mapped_column(nullable=False)
     description: Mapped[str] = mapped_column(nullable=False)
     created_at: Mapped[datetime] = mapped_column(server_default=text("TIMEZONE('utc', now())"))
+    updated_at: Mapped[datetime] = mapped_column(server_default=text("TIMEZONE('utc', now())"),
+                                                 onupdate=datetime.now)
 
-    comments: Mapped[list['Comment']] = relationship()
+    comments: Mapped[list['Comment']] = relationship(lazy="selectin")
 
 
 class Comment(Base):
