@@ -1,7 +1,6 @@
 from uuid import UUID
 
 from sqlalchemy import delete, insert, update
-from sqlalchemy.exc import SQLAlchemyError
 
 from app.auth.exceptions import InvalidCredentialsException
 from app.auth.models import RefreshToken

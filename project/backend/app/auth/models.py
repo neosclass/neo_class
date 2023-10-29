@@ -15,5 +15,4 @@ class RefreshToken(Base):
     refresh_token: Mapped[str] = mapped_column(nullable=False)
     expires_at: Mapped[datetime] = mapped_column(server_default=text("TIMEZONE('utc', now())"), nullable=False)
     created_at: Mapped[datetime] = mapped_column(server_default=text("TIMEZONE('utc', now())"), nullable=False)
-    updated_at: Mapped[datetime] = mapped_column(server_default=text("TIMEZONE('utc', now())"),
-                                                          onupdate=datetime.now)
+    updated_at: Mapped[datetime] = mapped_column(server_default=text("TIMEZONE('utc', now())"), onupdate=datetime.now)

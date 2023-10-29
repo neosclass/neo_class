@@ -19,7 +19,7 @@ class ClassService:
         return user_class
 
     async def delete_class(self, class_id: int):
-        delete_class = await self.class_repo.delete(id=class_id)
+        await self.class_repo.delete(id=class_id)
         return {"success": True}
 
 
@@ -40,5 +40,5 @@ class TaskService:
         return user_task
 
     async def delete_task(self, task_id: int):
-        delete_class = await self.task_repo.delete(id=task_id)
+        await self.task_repo.delete(id=task_id)
         return {"success": True}

@@ -22,4 +22,4 @@ class User(Base):
     surname: Mapped[str] = mapped_column(nullable=False)
     is_admin: Mapped[bool] = mapped_column(default=False, nullable=False)
 
-    classes: Mapped[list["Class"]] = relationship(secondary=user_class, lazy="selectin")
+    classes: Mapped[list['Class']] = relationship(secondary=user_class, lazy="selectin")

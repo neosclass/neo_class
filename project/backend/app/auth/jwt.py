@@ -9,7 +9,6 @@ from app.auth.config import config
 from app.auth.service import RefreshTokenService
 
 
-
 def _create_refresh_token_value():
     return secrets.token_urlsafe(32)
 
@@ -58,10 +57,10 @@ async def create_access_token(user_id: int) -> str:
 
 
 def get_token_settings(
-    token_value: str,
-    token_key: str,
-    token_exp: int,
-    expired: bool = False,
+        token_value: str,
+        token_key: str,
+        token_exp: int,
+        expired: bool = False,
 ) -> dict[str, Any]:
     base_cookie = {
         'key': token_key,

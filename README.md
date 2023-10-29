@@ -1,12 +1,7 @@
 # *In developing!*
 
----
-
-
 # Neo class 
 ### This project optimizes communication between teacher and student
-
----
 
 ### Download and local use 
 
@@ -14,6 +9,9 @@
 * Go to the root folder
 * Start the project with ``docker compose up --build`` commands
 * The project is available at http://localhost:8000/
+
+---
+Use flake8 ``flake8 --config .flake8 .``
 
 ---
 ### Important
