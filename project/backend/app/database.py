@@ -26,4 +26,5 @@ async def get_async_session() -> AsyncGenerator[AsyncSession, None]:
         yield session
 
 
-def main(): return 4
+def main():
+    return 4
