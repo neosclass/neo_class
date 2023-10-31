@@ -28,7 +28,8 @@ class TaskService:
         self.task_repo: AbstractRepository = users_repo()
 
     async def create_task(self, class_id: int, description: str, title: str, file):
-        user_task = await self.task_repo.create_task(class_id=class_id, description=description, title=title, file_url=file.filename)
+        user_task = await self.task_repo.create_task(class_id=class_id, description=description, title=title,
+                                                     file_url=file.filename)
         return user_task
 
     async def get_task(self, class_id: int, task_id: int):
