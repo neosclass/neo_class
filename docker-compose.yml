@@ -2,7 +2,7 @@ version: "3.8"
 
 services:
   db:
-    container_name: postgres_container
+    container_name: postgres
     image: postgres:13.0-alpine
     environment:
       - POSTGRES_PASSWORD=123
@@ -17,7 +17,7 @@ services:
       context: project/backend
     env_file:
       - project/backend/app/.env
-    container_name: fastapi_container
+    container_name: fastapi
     restart: always
     command: [ "deploy/app.sh" ]
     ports:
@@ -27,10 +27,33 @@ services:
     networks:
       - project-network
 
+  s3:
+    image: minio/minio
+    container_name: myminio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    command: server --address ":9000" --console-address ":9001" /data
+    networks:
+      - project-network
+  createbuckets:
+    image: minio/mc
+    depends_on:
+      - s3
+    entrypoint: >
+      /bin/sh -c "
+      sleep 10;
+      /usr/bin/mc config host add myminio http://myminio:9000 minioadmin minioadmin;
+      /usr/bin/mc mb myminio/task-files;
+      sleep 999;
+      exit 0;
+      "
+
 networks:
-    project-network:
-      driver: bridge
+  project-network:
+    driver: bridge
 
 volumes:
-    static:
-    media:
+  static:
+  media:
+  minio-storage:

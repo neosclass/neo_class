@@ -32,6 +32,7 @@ class Task(Base):
     created_at: Mapped[datetime] = mapped_column(server_default=text("TIMEZONE('utc', now())"))
     updated_at: Mapped[datetime] = mapped_column(server_default=text("TIMEZONE('utc', now())"),
                                                  onupdate=datetime.now)
+    file_url: Mapped[str] = mapped_column(nullable=True)
 
     comments: Mapped[list['Comment']] = relationship(lazy="selectin")
 

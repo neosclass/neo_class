@@ -1,8 +1,8 @@
-"""Add cascade in user_class
+"""last
 
-Revision ID: 36084d576944
+Revision ID: 4a56a28b8846
 Revises:
-Create Date: 2023-10-29 14:12:50.321190
+Create Date: 2023-10-31 15:43:41.904442
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '36084d576944'
+revision = '4a56a28b8846'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -55,6 +55,7 @@ def upgrade() -> None:
     sa.Column('description', sa.String(), nullable=False),
     sa.Column('created_at', sa.DateTime(), server_default=sa.text("TIMEZONE('utc', now())"), nullable=False),
     sa.Column('updated_at', sa.DateTime(), server_default=sa.text("TIMEZONE('utc', now())"), nullable=False),
+    sa.Column('file_url', sa.String(), nullable=True),
     sa.ForeignKeyConstraint(['class_id'], ['class.id'], ondelete='CASCADE'),
     sa.PrimaryKeyConstraint('id')
     )
