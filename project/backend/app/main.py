@@ -5,6 +5,8 @@ from app.auth.router import router as auth_router
 from app.users.router import router as user_router
 from app.classes.router import router as class_router
 
+from app.utils.s3 import router as s3_rout
+
 app = FastAPI(title='НеоКласс')
 
 origins = [
@@ -30,3 +32,4 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(user_router)
 app.include_router(class_router)
+app.include_router(s3_rout)

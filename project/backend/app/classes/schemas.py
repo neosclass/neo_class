@@ -22,6 +22,7 @@ class TaskSchema(BaseModel):
     description: str
     created_at: datetime
     updated_at: datetime
+    file_url: str
 
     class Config:
         orm_mode = True

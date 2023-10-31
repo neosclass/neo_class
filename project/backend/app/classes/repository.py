@@ -42,3 +42,4 @@ class TaskRepository(SQLAlchemyRepository):
             await session.commit()
 
             return this_task
+

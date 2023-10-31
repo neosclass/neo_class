@@ -1,6 +1,6 @@
 from typing import Annotated
 
-from fastapi import APIRouter, status, Depends
+from fastapi import APIRouter, status, Depends, UploadFile
 
 from app.users.models import User
 from app.auth.dependencies import get_current_user
@@ -43,9 +43,9 @@ async def delete_class(class_id: int, class_service: Annotated[ClassService, Dep
 
 @router.post('/{class_id}/task/create', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
 async def create_task(title: str, description: str, class_id: int,
-                      task_service: Annotated[TaskService, Depends(task_service)],
+                      task_service: Annotated[TaskService, Depends(task_service)], file: UploadFile,
                       user: User = Depends(get_current_user)):
-    result = await task_service.create_task(class_id=class_id, description=description, title=title)
+    result = await task_service.create_task(class_id=class_id, description=description, title=title, file=file)
     return result
 
 
