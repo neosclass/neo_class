@@ -1,10 +1,8 @@
-from io import BytesIO
 from typing import Annotated
 from zipfile import ZipFile
 
 from fastapi import APIRouter, status, Depends, UploadFile, File
 from fastapi.responses import FileResponse
-from fastapi.encoders import jsonable_encoder
 
 from app.users.models import User
 from app.auth.dependencies import get_current_user
@@ -77,7 +75,6 @@ async def get_task_file(task_id: int, file_service: Annotated[FileService, Depen
             zip_file.writestr(file_name.object_name, file_data)
 
     return FileResponse(path='alo.zip', filename="alo.zip")
-
 
 
 @router.put('/{course_id}/task/update/{task_id}', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
