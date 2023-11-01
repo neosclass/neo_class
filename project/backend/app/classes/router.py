@@ -1,6 +1,8 @@
-from typing import Annotated
+import tempfile
+from typing import Annotated, Union
 
-from fastapi import APIRouter, status, Depends, UploadFile
+from fastapi import APIRouter, status, Depends, UploadFile, File
+from fastapi.responses import FileResponse, JSONResponse
 
 from app.users.models import User
 from app.auth.dependencies import get_current_user
@@ -8,6 +10,9 @@ from app.auth.dependencies import get_current_user
 from app.classes.service import ClassService, TaskService
 from app.classes.dependencies import class_service, task_service
 from app.classes.schemas import ClassSchema, TaskSchema, SuccessDelete
+
+from app.config import BUCKET
+from app.utils.s3 import client
 
 router = APIRouter(prefix='/classes', tags=['Classes'])
 
@@ -43,17 +48,30 @@ async def delete_class(class_id: int, class_service: Annotated[ClassService, Dep
 
 @router.post('/{class_id}/task/create', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
 async def create_task(title: str, description: str, class_id: int,
-                      task_service: Annotated[TaskService, Depends(task_service)], file: UploadFile,
+                      task_service: Annotated[TaskService, Depends(task_service)], file: UploadFile = File(...),
                       user: User = Depends(get_current_user)):
     result = await task_service.create_task(class_id=class_id, description=description, title=title, file=file)
     return result
 
 
-@router.get('/{class_id}/task/get/{task_id}', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
-async def get_task(class_id: int, task_id: int, task_service: Annotated[TaskService, Depends(task_service)],
-                   user: User = Depends(get_current_user)):
+@router.get('/{class_id}/task/get/{task_id}/info', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
+async def get_task_info(class_id: int, task_id: int, task_service: Annotated[TaskService, Depends(task_service)],
+                        user: User = Depends(get_current_user)):
     result = await task_service.get_task(class_id=class_id, task_id=task_id)
     return result
+
+
+@router.get('/{class_id}/task/get/{task_id}/files', status_code=status.HTTP_201_CREATED)
+async def get_task_info(class_id: int, task_id: int, task_service: Annotated[TaskService, Depends(task_service)],
+                        user: User = Depends(get_current_user)):
+    result = await task_service.get_task(class_id=class_id, task_id=task_id)
+
+    temp_file = tempfile.NamedTemporaryFile(delete=False)
+
+    with client.get_object(BUCKET, result.file_url) as file_data:
+        temp_file.write(file_data.read())
+
+    return FileResponse(temp_file.name, filename=result.file_url, media_type='image/jpg')
 
 
 @router.put('/{class_id}/task/update/{task_id}', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)

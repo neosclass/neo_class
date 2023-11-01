@@ -1,4 +1,11 @@
+import tempfile
+import uuid
+
 from app.utils.repository import AbstractRepository
+
+from app.utils.s3 import client
+
+from app.config import BUCKET
 
 
 class ClassService:
@@ -28,8 +35,18 @@ class TaskService:
         self.task_repo: AbstractRepository = users_repo()
 
     async def create_task(self, class_id: int, description: str, title: str, file):
+        file_uuid = str(uuid.uuid4())
+        client.put_object(
+            BUCKET,
+            file_uuid,
+            data=file.file,
+            content_type=file.content_type,
+            length=-1,
+            part_size=10 * 1024 * 1024,
+        )
+
         user_task = await self.task_repo.create_task(class_id=class_id, description=description, title=title,
-                                                     file_url=file.filename)
+                                                     file_url=file_uuid)
         return user_task
 
     async def get_task(self, class_id: int, task_id: int):

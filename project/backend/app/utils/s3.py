@@ -1,52 +1,10 @@
-import tempfile
-import uuid
-
 from minio import Minio
 
-from fastapi import APIRouter, File, UploadFile
-from fastapi.responses import FileResponse
-
-router = APIRouter(prefix='/alo')
+from app.config import ENDPOINT_URL, BUCKET, ACCESS_KEY, SECRET_KEY
 
 client = Minio(
-    'myminio:9000',
-    access_key="minioadmin",
-    secret_key="minioadmin",
+    ENDPOINT_URL,
+    access_key=ACCESS_KEY,
+    secret_key=SECRET_KEY,
     secure=False,
 )
-
-
-@router.post("/uploadfile/")
-async def create_upload_file(file: UploadFile = File(...)):
-    myuuid = str(uuid.uuid4())
-    client.put_object(
-        "task-files",
-        myuuid,
-        data=file.file,
-        content_type=file.content_type,
-        length=-1,
-        part_size=10 * 1024 * 1024,
-    )
-    return file.filename
-
-
-@router.get('get/files')
-async def get_object(uuid):
-    ans = client.fget_object('task-files', uuid, f'task-files/{uuid}')
-    return ans
-
-
-@router.get('files')
-async def get_files():
-    # Получение URL файла из Minio
-    #file_url = client.presigned_get_object("task-files", 'e851242b-523d-4c9b-95c2-b443144c54f6')
-
-    # Создание временного файла
-    temp_file = tempfile.NamedTemporaryFile(delete=False)
-
-    # Скачивание файла с помощью Minio и сохранение его во временном файле
-    with client.get_object("task-files", 'e851242b-523d-4c9b-95c2-b443144c54f6') as file_data:
-        temp_file.write(file_data.read())
-
-    # Отправка временного файла в качестве ответа на запрос
-    return FileResponse(temp_file.name, filename='e851242b-523d-4c9b-95c2-b443144c54f6', media_type='image/jpg')
