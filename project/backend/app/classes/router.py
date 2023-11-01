@@ -1,4 +1,3 @@
-import tempfile
 from typing import Annotated
 
 from fastapi import APIRouter, status, Depends, UploadFile, File
@@ -12,9 +11,6 @@ from app.classes.service import CourseService, TaskService, FileService
 from app.classes.dependencies import course_service, task_service, file_service
 from app.classes.schemas import CourseSchema, TaskSchema, SuccessDelete, CreateTaskSchema
 
-from app.utils.zip_files import zipfiles
-
-from app.config import BUCKET
 from app.utils.s3 import client
 
 router = APIRouter(prefix='/courses', tags=['Courses'])
