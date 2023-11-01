@@ -1,8 +1,8 @@
 import tempfile
-from typing import Annotated, Union
+from typing import Annotated
 
 from fastapi import APIRouter, status, Depends, UploadFile, File
-from fastapi.responses import FileResponse, JSONResponse
+from fastapi.responses import FileResponse
 
 from app.users.models import User
 from app.auth.dependencies import get_current_user
