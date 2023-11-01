@@ -1,6 +1,6 @@
 from minio import Minio
 
-from app.config import ENDPOINT_URL, BUCKET, ACCESS_KEY, SECRET_KEY
+from app.config import ENDPOINT_URL, ACCESS_KEY, SECRET_KEY
 
 client = Minio(
     ENDPOINT_URL,

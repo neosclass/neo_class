@@ -1,4 +1,3 @@
-import tempfile
 import uuid
 
 from app.utils.repository import AbstractRepository

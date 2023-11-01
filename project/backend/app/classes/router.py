@@ -62,7 +62,7 @@ async def get_task_info(class_id: int, task_id: int, task_service: Annotated[Tas
 
 
 @router.get('/{class_id}/task/get/{task_id}/files', status_code=status.HTTP_201_CREATED)
-async def get_task_info(class_id: int, task_id: int, task_service: Annotated[TaskService, Depends(task_service)],
+async def get_task_file(class_id: int, task_id: int, task_service: Annotated[TaskService, Depends(task_service)],
                         user: User = Depends(get_current_user)):
     result = await task_service.get_task(class_id=class_id, task_id=task_id)
 
