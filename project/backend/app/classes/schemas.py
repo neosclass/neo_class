@@ -3,7 +3,16 @@ from datetime import datetime
 from pydantic import BaseModel
 
 
-class ClassSchema(BaseModel):
+class FileSchema(BaseModel):
+    id: int
+    object_name: str
+    task_id: int
+
+    class Config:
+        orm_mode = True
+
+
+class CourseSchema(BaseModel):
     id: int
     created_by: int
     description: str
@@ -15,14 +24,26 @@ class ClassSchema(BaseModel):
         orm_mode = True
 
 
-class TaskSchema(BaseModel):
+class CreateTaskSchema(BaseModel):
     id: int
-    class_id: int
+    course_id: int
     title: str
     description: str
     created_at: datetime
     updated_at: datetime
-    file_url: str
+    files: list[FileSchema]
+
+    class Config:
+        orm_mode = True
+
+
+class TaskSchema(BaseModel):
+    id: int
+    course_id: int
+    title: str
+    description: str
+    created_at: datetime
+    updated_at: datetime
 
     class Config:
         orm_mode = True

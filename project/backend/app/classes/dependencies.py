@@ -1,10 +1,14 @@
-from app.classes.repository import ClassRepository, TaskRepository
-from app.classes.service import ClassService, TaskService
+from app.classes.repository import CourseRepository, TaskRepository, FileRepository
+from app.classes.service import CourseService, TaskService, FileService
 
 
-def class_service():
-    return ClassService(ClassRepository)
+def course_service():
+    return CourseService(CourseRepository)
 
 
 def task_service():
     return TaskService(TaskRepository)
+
+
+def file_service():
+    return FileService(FileRepository)

@@ -3,82 +3,99 @@ from typing import Annotated
 
 from fastapi import APIRouter, status, Depends, UploadFile, File
 from fastapi.responses import FileResponse
+from fastapi.encoders import jsonable_encoder
 
 from app.users.models import User
 from app.auth.dependencies import get_current_user
 
-from app.classes.service import ClassService, TaskService
-from app.classes.dependencies import class_service, task_service
-from app.classes.schemas import ClassSchema, TaskSchema, SuccessDelete
+from app.classes.service import CourseService, TaskService, FileService
+from app.classes.dependencies import course_service, task_service, file_service
+from app.classes.schemas import CourseSchema, TaskSchema, SuccessDelete, CreateTaskSchema
+
+from app.utils.zip_files import zipfiles
 
 from app.config import BUCKET
 from app.utils.s3 import client
 
-router = APIRouter(prefix='/classes', tags=['Classes'])
+router = APIRouter(prefix='/courses', tags=['Courses'])
 
 
-@router.post('/create', status_code=status.HTTP_201_CREATED, response_model=ClassSchema)
-async def create_class(title: str, description: str, class_service: Annotated[ClassService, Depends(class_service)],
-                       user: User = Depends(get_current_user)):
-    result = await class_service.create_class(user_id=user.id, description=description, title=title)
+@router.post('/create', status_code=status.HTTP_201_CREATED, response_model=CourseSchema)
+async def create_course(title: str, description: str, course_service: Annotated[CourseService, Depends(course_service)],
+                        user: User = Depends(get_current_user)):
+    result = await course_service.create_course(user_id=user.id, description=description, title=title)
     return result
 
 
-@router.get('/get/{class_id}', status_code=status.HTTP_200_OK, response_model=ClassSchema)
-async def get_class(class_id: int, class_service: Annotated[ClassService, Depends(class_service)],
-                    user: User = Depends(get_current_user)):
-    class_user = await class_service.get_class(class_id)
-    return class_user
+@router.get('/get/{course_id}', status_code=status.HTTP_200_OK, response_model=CourseSchema)
+async def get_course(course_id: int, course_service: Annotated[CourseService, Depends(course_service)],
+                     user: User = Depends(get_current_user)):
+    course_user = await course_service.get_course(course_id)
+    return course_user
 
 
-@router.put('/update/{class_id}', status_code=status.HTTP_201_CREATED, response_model=ClassSchema)
-async def update_class(title: str, description: str, class_id: int,
-                       class_service: Annotated[ClassService, Depends(class_service)],
+@router.put('/update/{course_id}', status_code=status.HTTP_201_CREATED, response_model=CourseSchema)
+async def update_course(title: str, description: str, course_id: int,
+                        course_service: Annotated[CourseService, Depends(course_service)],
+                        user: User = Depends(get_current_user)):
+    update_course_user = await course_service.update_course(course_id=course_id, title=title, description=description)
+    return update_course_user
+
+
+@router.delete('/delete/course_id}', status_code=status.HTTP_200_OK, response_model=SuccessDelete)
+async def delete_class(course_id: int, class_service: Annotated[CourseService, Depends(course_service)],
                        user: User = Depends(get_current_user)):
-    update_class_user = await class_service.update_class(class_id=class_id, title=title, description=description)
-    return update_class_user
-
-
-@router.delete('/delete/{class_id}', status_code=status.HTTP_200_OK, response_model=SuccessDelete)
-async def delete_class(class_id: int, class_service: Annotated[ClassService, Depends(class_service)],
-                       user: User = Depends(get_current_user)):
-    result = await class_service.delete_class(class_id=class_id)
+    result = await class_service.delete_course(course_id=course_id)
     return result
 
 
-@router.post('/{class_id}/task/create', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
-async def create_task(title: str, description: str, class_id: int,
-                      task_service: Annotated[TaskService, Depends(task_service)], file: UploadFile = File(...),
+@router.post('/{course_id}/task/create', status_code=status.HTTP_201_CREATED, response_model=CreateTaskSchema)
+async def create_task(title: str, description: str, course_id: int,
+                      task_service: Annotated[TaskService, Depends(task_service)], files: list[UploadFile] = File(...),
                       user: User = Depends(get_current_user)):
-    result = await task_service.create_task(class_id=class_id, description=description, title=title, file=file)
+    result = await task_service.create_task(course_id=course_id, description=description, title=title, files=files)
     return result
 
 
-@router.get('/{class_id}/task/get/{task_id}/info', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
-async def get_task_info(class_id: int, task_id: int, task_service: Annotated[TaskService, Depends(task_service)],
+@router.get('/{course_id}/task/get/{task_id}/info', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
+async def get_task_info(course_id: int, task_id: int, task_service: Annotated[TaskService, Depends(task_service)],
                         user: User = Depends(get_current_user)):
-    result = await task_service.get_task(class_id=class_id, task_id=task_id)
+    result = await task_service.get_task(course_id=course_id, task_id=task_id)
     return result
 
 
-@router.get('/{class_id}/task/get/{task_id}/files', status_code=status.HTTP_201_CREATED)
-async def get_task_file(class_id: int, task_id: int, task_service: Annotated[TaskService, Depends(task_service)],
+@router.get('/{course_id}/task/get/{task_id}/files', status_code=status.HTTP_201_CREATED)
+async def get_task_file(task_id: int, file_service: Annotated[FileService, Depends(file_service)],
                         user: User = Depends(get_current_user)):
-    result = await task_service.get_task(class_id=class_id, task_id=task_id)
+    files = await file_service.get_files_all(task_id=task_id)
 
-    temp_file = tempfile.NamedTemporaryFile(delete=False)
+    # temp_file = tempfile.NamedTemporaryFile(delete=False)
+    #
+    # for file in result:
+    #     with client.get_object(BUCKET, file.object_name) as file_data:
+    #         temp_file.write(file_data.read())
+    #
+    #     return list[FileResponse(temp_file.name, filename=file.object_name, media_type='image/jpg')]
 
-    with client.get_object(BUCKET, result.file_url) as file_data:
-        temp_file.write(file_data.read())
+    # Create a list of FileResponse objects for each file
+    file_responses = []
+    for file in files:
+        # Get file from Minio and create FileResponse object
+        file_data = client.get_object("task-files", file.object_name)
+        file_response = FileResponse(file_data, filename=file.object_name, media_type='image/jpg')
 
-    return FileResponse(temp_file.name, filename=result.file_url, media_type='image/jpg')
+        # Add FileResponse object to list
+        file_responses.append(file_response)
+
+    # Return the list of FileResponse objects as a JSON response
+    return jsonable_encoder(file_responses)
 
 
-@router.put('/{class_id}/task/update/{task_id}', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
-async def update_task(title: str, description: str, class_id: int, task_id: int,
+@router.put('/{course_id}/task/update/{task_id}', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
+async def update_task(title: str, description: str, course_id: int, task_id: int,
                       task_service: Annotated[TaskService, Depends(task_service)],
                       user: User = Depends(get_current_user)):
-    update_task_user = await task_service.update_task(class_id=class_id, title=title,
+    update_task_user = await task_service.update_task(course_id=course_id, title=title,
                                                       description=description,
                                                       task_id=task_id)
     return update_task_user

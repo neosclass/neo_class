@@ -2,43 +2,59 @@ from sqlalchemy import select
 
 from app.utils.repository import SQLAlchemyRepository
 
-from app.classes.models import Class, Task
+from app.classes.models import Course, Task, File
 from app.users.models import User
 
 from app.database import async_session_maker
 
 
-class ClassRepository(SQLAlchemyRepository):
-    model = Class
+class CourseRepository(SQLAlchemyRepository):
+    model = Course
 
     @classmethod
-    async def create_class(cls, user_id: int, **data):
+    async def create_course(cls, user_id: int, **data):
         async with async_session_maker() as session:
             this_user = select(User).filter_by(id=user_id)
             result = await session.execute(this_user)
             result = result.scalars().first()
 
-            this_class = Class(**data)
+            this_course = Course(**data)
 
-            result.classes.append(this_class)
+            result.classes.append(this_course)
             await session.commit()
 
-            return this_class
+            return this_course
 
 
 class TaskRepository(SQLAlchemyRepository):
     model = Task
 
     @classmethod
-    async def create_task(cls, class_id: int, **data):
+    async def create_task(cls, course_id: int, description: str, title: str, object_names: list[str]):
         async with async_session_maker() as session:
-            this_class = select(Class).filter_by(id=class_id)
+            this_class = select(Course).filter_by(id=course_id)
             result = await session.execute(this_class)
             result = result.scalars().first()
 
-            this_task = Task(**data)
+            this_task = Task(title=title, description=description)
+            for name in object_names:
+                this_file = File(object_name=name)
+                this_task.files.append(this_file)
 
             result.tasks.append(this_task)
             await session.commit()
 
             return this_task
+
+
+class FileRepository(SQLAlchemyRepository):
+    model = File
+
+    @classmethod
+    async def get_files_all(cls, task_id: int):
+        async with async_session_maker() as session:
+            this_files = select(File).filter_by(task_id=task_id)
+            result = await session.execute(this_files)
+            result = result.scalars().all()
+
+            return result
