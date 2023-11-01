@@ -48,6 +48,8 @@ services:
       sleep 999;
       exit 0;
       "
+    networks:
+      - project-network
 
 networks:
   project-network:
