@@ -1,4 +1,6 @@
+from io import BytesIO
 from typing import Annotated
+from zipfile import ZipFile
 
 from fastapi import APIRouter, status, Depends, UploadFile, File
 from fastapi.responses import FileResponse
@@ -65,26 +67,17 @@ async def get_task_file(task_id: int, file_service: Annotated[FileService, Depen
                         user: User = Depends(get_current_user)):
     files = await file_service.get_files_all(task_id=task_id)
 
-    # temp_file = tempfile.NamedTemporaryFile(delete=False)
-    #
-    # for file in result:
-    #     with client.get_object(BUCKET, file.object_name) as file_data:
-    #         temp_file.write(file_data.read())
-    #
-    #     return list[FileResponse(temp_file.name, filename=file.object_name, media_type='image/jpg')]
+    with ZipFile('alo.zip', mode="w") as zip_file:
+        # Loop through each file and add it to the zip archive
+        for file_name in files:
+            # Get file data from Minio
+            file_data = client.get_object("task-files", file_name.object_name).read()
 
-    # Create a list of FileResponse objects for each file
-    file_responses = []
-    for file in files:
-        # Get file from Minio and create FileResponse object
-        file_data = client.get_object("task-files", file.object_name)
-        file_response = FileResponse(file_data, filename=file.object_name, media_type='image/jpg')
+            # Add file data to the zip archive with the same file name
+            zip_file.writestr(file_name.object_name, file_data)
 
-        # Add FileResponse object to list
-        file_responses.append(file_response)
+    return FileResponse(path='alo.zip', filename="alo.zip")
 
-    # Return the list of FileResponse objects as a JSON response
-    return jsonable_encoder(file_responses)
 
 
 @router.put('/{course_id}/task/update/{task_id}', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
