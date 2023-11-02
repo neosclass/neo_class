@@ -5,12 +5,12 @@ services:
     container_name: postgres
     image: postgres:13.0-alpine
     environment:
-      - POSTGRES_PASSWORD=123
-      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=${DB_PASS}
+      - POSTGRES_USER=${DB_USER}
     networks:
       - project-network
     ports:
-      - "2344:5432"
+      - "2344:${DB_PORT}"
 
   app:
     build:
@@ -36,6 +36,7 @@ services:
     command: server --address ":9000" --console-address ":9001" /data
     networks:
       - project-network
+
   createbuckets:
     image: minio/mc
     depends_on:
@@ -43,8 +44,8 @@ services:
     entrypoint: >
       /bin/sh -c "
       sleep 10;
-      /usr/bin/mc config host add myminio http://myminio:9000 minioadmin minioadmin;
-      /usr/bin/mc mb myminio/task-files;
+      /usr/bin/mc config host add myminio http://${ENDPOINT_URL} ${ACCESS_KEY} ${SECRET_KEY};
+      /usr/bin/mc mb myminio/${BUCKET};
       sleep 999;
       exit 0;
       "
