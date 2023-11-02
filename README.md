@@ -7,7 +7,7 @@
 
 * Make sure you have the latest versions of Docker and Docker Compose installed
 * Go to the root folder
-* Start the project with ``docker compose up --build`` commands
+* Start the project with ``docker compose --env-file path/to/env/file up --build`` commands
 * The project is available at http://localhost:8000/
 
 ---
