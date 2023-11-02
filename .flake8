@@ -10,5 +10,6 @@ exclude =
     venv/,
     env/,
     .git,
+    .env,
 max-complexity = 8
 max-line-length = 120
