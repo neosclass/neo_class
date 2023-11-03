@@ -1,7 +1,6 @@
 import tempfile
 import zipfile
 from typing import Annotated
-from zipfile import ZipFile
 
 from fastapi import APIRouter, status, Depends, UploadFile, File
 from fastapi.responses import FileResponse
