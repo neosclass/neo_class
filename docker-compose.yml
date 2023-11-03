@@ -57,7 +57,7 @@ services:
     container_name: redis_app
     command: --port ${REDIS_PORT}
     ports:
-      - "${REDIS_PORT}:${REDIS_PORT}"
+      - "6378:${REDIS_PORT}"
 
 networks:
   project-network:
