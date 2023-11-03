@@ -52,6 +52,13 @@ services:
     networks:
       - project-network
 
+  redis:
+    image: redis
+    container_name: redis_app
+    command: --port ${REDIS_PORT}
+    ports:
+      - "${REDIS_PORT}:${REDIS_PORT}"
+
 networks:
   project-network:
     driver: bridge
