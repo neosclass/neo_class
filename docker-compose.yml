@@ -54,10 +54,15 @@ services:
 
   redis:
     image: redis
+    hostname: redis_app
     container_name: redis_app
     command: --port ${REDIS_PORT}
     ports:
       - "6378:${REDIS_PORT}"
+    networks:
+      - project-network
+    volumes:
+      - cache:/data
 
 networks:
   project-network:
@@ -67,3 +72,4 @@ volumes:
   static:
   media:
   minio-storage:
+  cache:

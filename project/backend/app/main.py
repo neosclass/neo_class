@@ -41,12 +41,13 @@ app.add_middleware(
     ],
 )
 
-app.include_router(auth_router)
-app.include_router(user_router)
-app.include_router(class_router)
-
 
 @app.on_event("startup")
 async def startup_event():
     redis = aioredis.from_url(f"redis://{REDIS_HOST}:{REDIS_PORT}", encoding="utf8", decode_responses=True)
     FastAPICache.init(RedisBackend(redis), prefix="fastapi-cache")
+
+
+app.include_router(auth_router)
+app.include_router(user_router)
+app.include_router(class_router)

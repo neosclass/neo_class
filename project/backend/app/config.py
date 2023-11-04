@@ -4,8 +4,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-CACHE_EXPIRE = 60 * 60 * 2  # 2 hours for cache to expire
-
 DB_HOST = os.environ.get("DB_HOST")
 DB_PORT = os.environ.get("DB_PORT")
 DB_NAME = os.environ.get("DB_NAME")
@@ -21,3 +19,4 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 
 REDIS_HOST = os.environ.get("REDIS_HOST")
 REDIS_PORT = os.environ.get("REDIS_PORT")
+CACHE_EXPIRE = os.environ.get("CACHE_EXPIRE")
