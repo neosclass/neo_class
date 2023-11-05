@@ -1,5 +1,6 @@
+import tempfile
+import zipfile
 from typing import Annotated
-from zipfile import ZipFile
 
 from fastapi import APIRouter, status, Depends, UploadFile, File
 from fastapi.responses import FileResponse
@@ -70,16 +71,20 @@ async def get_task_file(task_id: int, file_service: Annotated[FileService, Depen
                         user: User = Depends(get_current_user)):
     files = await file_service.get_files_all(task_id=task_id)
 
-    with ZipFile('alo.zip', mode="w") as zip_file:
-        # Loop through each file and add it to the zip archive
-        for file_name in files:
-            # Get file data from Minio
-            file_data = client.get_object("task-files", file_name.object_name).read()
+    # Создание временного файла
+    with tempfile.NamedTemporaryFile(suffix='.zip', delete=False) as tmp:
+        # Создание объекта ZipFile
+        with zipfile.ZipFile(tmp, mode='w') as zip:
+            # Добавление файлов в архив
+            # Loop through each file and add it to the zip archive
+            for file_name in files:
+                # Get file data from Minio
+                file_data = client.get_object('task-files', file_name.object_name).read()
 
-            # Add file data to the zip archive with the same file name
-            zip_file.writestr(file_name.object_name, file_data)
+                # Add file data to the zip archive with the same file name
+                zip.writestr(file_name.object_name, file_data)
 
-    return FileResponse(path='alo.zip', filename="alo.zip")
+        return FileResponse(path=tmp.name, filename=f'{tmp.name}.zip', media_type='application/zip')
 
 
 @router.put('/{course_id}/task/update/{task_id}', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
