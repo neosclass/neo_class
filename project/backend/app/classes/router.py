@@ -4,6 +4,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, status, Depends, UploadFile, File
 from fastapi.responses import FileResponse
+from fastapi_cache.decorator import cache
 
 from app.users.models import User
 from app.auth.dependencies import get_current_user
@@ -13,6 +14,7 @@ from app.classes.dependencies import course_service, task_service, file_service
 from app.classes.schemas import CourseSchema, TaskSchema, SuccessDelete, CreateTaskSchema
 
 from app.utils.s3 import client
+from app.config import CACHE_EXPIRE
 
 router = APIRouter(prefix='/courses', tags=['Courses'])
 
@@ -25,6 +27,7 @@ async def create_course(title: str, description: str, course_service: Annotated[
 
 
 @router.get('/get/{course_id}', status_code=status.HTTP_200_OK, response_model=CourseSchema)
+@cache(expire=CACHE_EXPIRE)
 async def get_course(course_id: int, course_service: Annotated[CourseService, Depends(course_service)],
                      user: User = Depends(get_current_user)):
     course_user = await course_service.get_course(course_id)
@@ -55,6 +58,7 @@ async def create_task(title: str, description: str, course_id: int,
 
 
 @router.get('/{course_id}/task/get/{task_id}/info', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
+@cache(expire=CACHE_EXPIRE)
 async def get_task_info(course_id: int, task_id: int, task_service: Annotated[TaskService, Depends(task_service)],
                         user: User = Depends(get_current_user)):
     result = await task_service.get_task(course_id=course_id, task_id=task_id)
@@ -62,6 +66,7 @@ async def get_task_info(course_id: int, task_id: int, task_service: Annotated[Ta
 
 
 @router.get('/{course_id}/task/get/{task_id}/files', status_code=status.HTTP_201_CREATED)
+@cache(expire=CACHE_EXPIRE)
 async def get_task_file(task_id: int, file_service: Annotated[FileService, Depends(file_service)],
                         user: User = Depends(get_current_user)):
     files = await file_service.get_files_all(task_id=task_id)
