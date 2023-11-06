@@ -5,10 +5,10 @@ from sqlalchemy import (
     text,
 )
 
-from app.database import Base
+from project.backend.app.database import Base
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
-from app.associative_tables.user_class import user_course
+from project.backend.app.associative_tables.user_class import user_course
 
 
 class User(Base):

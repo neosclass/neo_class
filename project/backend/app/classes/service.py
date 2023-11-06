@@ -2,11 +2,11 @@ import uuid
 
 from fastapi import UploadFile
 
-from app.utils.repository import AbstractRepository
+from project.backend.app.utils.repository import AbstractRepository
 
-from app.utils.s3 import client
+from project.backend.app.utils.s3 import client
 
-from app.config import BUCKET
+from project.backend.app.config import BUCKET
 
 
 class CourseService:

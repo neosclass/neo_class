@@ -4,7 +4,7 @@ from sqlalchemy import (
     ForeignKey, text,
 )
 
-from app.database import Base
+from project.backend.app.database import Base
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
 

@@ -1,5 +1,5 @@
-from app.classes.repository import CourseRepository, TaskRepository, FileRepository
-from app.classes.service import CourseService, TaskService, FileService
+from project.backend.app.classes.repository import CourseRepository, TaskRepository, FileRepository
+from project.backend.app.classes.service import CourseService, TaskService, FileService
 
 
 def course_service():

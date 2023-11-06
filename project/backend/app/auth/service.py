@@ -2,13 +2,13 @@ from uuid import UUID
 
 from sqlalchemy import delete, insert, update
 
-from app.auth.exceptions import InvalidCredentialsException
-from app.auth.models import RefreshToken
-from app.auth.schemas import UserAuthLoginSchema, UserAuthRegisterSchema
-from app.auth.security import check_password, hash_password
-from app.utils.repository import SQLAlchemyRepository
-from app.database import async_session_maker
-from app.users.models import User
+from project.backend.app.auth.exceptions import InvalidCredentialsException
+from project.backend.app.auth.models import RefreshToken
+from project.backend.app.auth.schemas import UserAuthLoginSchema, UserAuthRegisterSchema
+from project.backend.app.auth.security import check_password, hash_password
+from project.backend.app.utils.repository import SQLAlchemyRepository
+from project.backend.app.database import async_session_maker
+from project.backend.app.users.models import User
 
 
 class UserService(SQLAlchemyRepository):

@@ -1,11 +1,11 @@
 from sqlalchemy import select
 
-from app.utils.repository import SQLAlchemyRepository
+from project.backend.app.utils.repository import SQLAlchemyRepository
 
-from app.classes.models import Course, Task, File
-from app.users.models import User
+from project.backend.app.classes.models import Course, Task, File
+from project.backend.app.users.models import User
 
-from app.database import async_session_maker
+from project.backend.app.database import async_session_maker
 
 
 class CourseRepository(SQLAlchemyRepository):
