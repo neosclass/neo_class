@@ -6,6 +6,8 @@ from sqlalchemy import (
 )
 
 from project.backend.app.database import Base
+from project.backend.app.classes.models import Course
+
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from project.backend.app.associative_tables.user_class import user_course

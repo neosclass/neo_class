@@ -8,6 +8,8 @@ from sqlalchemy import pool
 from alembic import context
 
 from project.backend.app.users.models import *
+from project.backend.app.classes.models import *
+from project.backend.app.tasks.models import *
 
 from project.backend.app.config import DB_HOST, DB_NAME, DB_PASS, DB_PORT, DB_USER
 from project.backend.app.database import Base

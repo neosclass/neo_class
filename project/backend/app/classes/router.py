@@ -9,9 +9,14 @@ from fastapi_cache.decorator import cache
 from project.backend.app.users.models import User
 from project.backend.app.auth.dependencies import get_current_user
 
-from project.backend.app.classes.service import CourseService, TaskService, FileService
-from project.backend.app.classes.dependencies import course_service, task_service, file_service
-from project.backend.app.classes.schemas import CourseSchema, TaskSchema, SuccessDelete, CreateTaskSchema
+from project.backend.app.classes.service import CourseService
+from project.backend.app.tasks.service import TaskService, FileService
+
+from project.backend.app.classes.dependencies import course_service
+from project.backend.app.tasks.dependencies import task_service, file_service
+
+from project.backend.app.classes.schemas import CourseSchema, SuccessDelete
+from project.backend.app.tasks.schemas import TaskSchema, CreateTaskSchema
 
 from project.backend.app.utils.s3 import client
 from project.backend.app.config import CACHE_EXPIRE
