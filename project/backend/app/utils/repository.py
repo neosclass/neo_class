@@ -2,7 +2,7 @@ from abc import ABC, abstractmethod
 
 from sqlalchemy import (insert, select, update, delete)
 
-from app.database import async_session_maker
+from project.backend.app.database import async_session_maker
 
 
 class AbstractRepository(ABC):

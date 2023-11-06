@@ -1,4 +1,4 @@
-from app.exceptions import BadRequestException, NotAuthenticatedException
+from project.backend.app.exceptions import BadRequestException, NotAuthenticatedException
 
 
 class EmailTakenException(BadRequestException):

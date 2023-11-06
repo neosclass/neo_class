@@ -2,7 +2,7 @@ from typing import Optional
 
 from pydantic import BaseModel, EmailStr, Field, validator
 
-from app.auth.validators import validate_email, validate_password
+from project.backend.app.auth.validators import validate_email, validate_password
 
 
 class UserBaseReadSchema(BaseModel):

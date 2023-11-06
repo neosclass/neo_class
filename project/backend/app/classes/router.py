@@ -6,15 +6,15 @@ from fastapi import APIRouter, status, Depends, UploadFile, File
 from fastapi.responses import FileResponse
 from fastapi_cache.decorator import cache
 
-from app.users.models import User
-from app.auth.dependencies import get_current_user
+from project.backend.app.users.models import User
+from project.backend.app.auth.dependencies import get_current_user
 
-from app.classes.service import CourseService, TaskService, FileService
-from app.classes.dependencies import course_service, task_service, file_service
-from app.classes.schemas import CourseSchema, TaskSchema, SuccessDelete, CreateTaskSchema
+from project.backend.app.classes.service import CourseService, TaskService, FileService
+from project.backend.app.classes.dependencies import course_service, task_service, file_service
+from project.backend.app.classes.schemas import CourseSchema, TaskSchema, SuccessDelete, CreateTaskSchema
 
-from app.utils.s3 import client
-from app.config import CACHE_EXPIRE
+from project.backend.app.utils.s3 import client
+from project.backend.app.config import CACHE_EXPIRE
 
 router = APIRouter(prefix='/courses', tags=['Courses'])
 

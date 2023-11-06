@@ -1,6 +1,6 @@
 from sqlalchemy import ForeignKey, Table, Column
 
-from app.database import Base
+from project.backend.app.database import Base
 
 # note for a Core table, we use the sqlalchemy.Column construct,
 # not sqlalchemy.orm.mapped_column

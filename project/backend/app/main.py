@@ -6,11 +6,11 @@ from fastapi_cache import FastAPICache
 from fastapi_cache.backends.redis import RedisBackend
 from redis import asyncio as aioredis
 
-from app.auth.router import router as auth_router
-from app.users.router import router as user_router
-from app.classes.router import router as class_router
+from project.backend.app.auth.router import router as auth_router
+from project.backend.app.users.router import router as user_router
+from project.backend.app.classes.router import router as class_router
 
-from app.config import REDIS_HOST, REDIS_PORT
+from project.backend.app.config import REDIS_HOST, REDIS_PORT
 
 app = FastAPI(title='Neo class', openapi_url='/api/v1/openapi.json',
               swagger_ui_oauth2_redirect_url='/api/v1/docs/oauth2-redirect')

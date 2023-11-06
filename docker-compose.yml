@@ -14,12 +14,12 @@ services:
 
   app:
     build:
-      context: project/backend
+      context: .
     env_file:
       - project/backend/app/.env
     container_name: fastapi
     restart: always
-    command: [ "deploy/app.sh" ]
+    command: [ "project/backend/deploy/app.sh" ]
     ports:
       - "8000:8000"
     depends_on:

@@ -1,25 +1,25 @@
 from fastapi import APIRouter, Depends, Response, status
 
-from app.auth.config import config
-from app.auth.dependencies import (
+from project.backend.app.auth.config import config
+from project.backend.app.auth.dependencies import (
     valid_refresh_token,
     valid_refresh_token_user,
     valid_user_create,
 )
-from app.auth.jwt import (
+from project.backend.app.auth.jwt import (
     create_access_token,
     create_refresh_token,
     get_token_settings,
     update_refresh_token,
 )
-from app.auth.models import RefreshToken
-from app.auth.schemas import (
+from project.backend.app.auth.models import RefreshToken
+from project.backend.app.auth.schemas import (
     UserAccessTokenResponseSchema,
     UserAuthLoginSchema,
     UserAuthRegisterSchema,
 )
-from app.auth.service import UserService
-from app.users.models import User
+from project.backend.app.auth.service import UserService
+from project.backend.app.users.models import User
 
 router = APIRouter(prefix='/auth', tags=['Auth'])
 

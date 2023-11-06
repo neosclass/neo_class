@@ -5,8 +5,8 @@ from uuid import UUID
 
 from jose import jwt
 
-from app.auth.config import config
-from app.auth.service import RefreshTokenService
+from project.backend.app.auth.config import config
+from project.backend.app.auth.service import RefreshTokenService
 
 
 def _create_refresh_token_value():

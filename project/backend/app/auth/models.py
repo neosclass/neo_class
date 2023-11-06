@@ -3,7 +3,7 @@ from uuid import uuid4
 
 from sqlalchemy import (UUID, ForeignKey, text)
 
-from app.database import Base
+from project.backend.app.database import Base
 from sqlalchemy.orm import Mapped, mapped_column
 
 
