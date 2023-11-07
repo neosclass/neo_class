@@ -26,7 +26,7 @@ async def create_task(title: str, description: str, course_id: int,
     return result
 
 
-@router.get('/{course_id}/{task_id}', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
+@router.get('/{course_id}/{task_id}/info', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
 @cache(expire=CACHE_EXPIRE)
 async def get_task_info(course_id: int, task_id: int, task_service: Annotated[TaskService, Depends(task_service)],
                         user: User = Depends(get_current_user)):
@@ -34,7 +34,7 @@ async def get_task_info(course_id: int, task_id: int, task_service: Annotated[Ta
     return result
 
 
-@router.get('/{course_id}/{task_id}', status_code=status.HTTP_201_CREATED)
+@router.get('/{course_id}/{task_id}/files', status_code=status.HTTP_201_CREATED)
 @cache(expire=CACHE_EXPIRE)
 async def get_task_file(task_id: int, file_service: Annotated[FileService, Depends(file_service)],
                         user: User = Depends(get_current_user)):
