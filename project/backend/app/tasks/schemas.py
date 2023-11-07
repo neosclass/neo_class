@@ -35,3 +35,10 @@ class TaskSchema(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class SuccessDelete(BaseModel):
+    success: bool
+
+    class Config:
+        orm_mode = True

@@ -34,7 +34,7 @@ class TaskService:
 
     async def delete_task(self, task_id: int):
         await self.task_repo.delete(id=task_id)
-        return {"success": True}
+        return {'success': True}
     
 
 class FileService:

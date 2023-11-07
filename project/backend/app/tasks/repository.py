@@ -3,6 +3,7 @@ from sqlalchemy import select
 from project.backend.app.utils.repository import SQLAlchemyRepository
 
 from project.backend.app.classes.models import Course
+
 from project.backend.app.tasks.models import Task, File
 
 from project.backend.app.database import async_session_maker

@@ -9,6 +9,9 @@ from redis import asyncio as aioredis
 from project.backend.app.auth.router import router as auth_router
 from project.backend.app.users.router import router as user_router
 from project.backend.app.classes.router import router as class_router
+from project.backend.app.tasks.router import router as task_router
+from project.backend.app.comments.router import router as comment_router
+
 
 from project.backend.app.config import REDIS_HOST, REDIS_PORT
 
@@ -51,3 +54,5 @@ async def startup_event():
 app.include_router(auth_router)
 app.include_router(user_router)
 app.include_router(class_router)
+app.include_router(task_router)
+app.include_router(comment_router)
