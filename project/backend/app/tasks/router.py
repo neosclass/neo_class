@@ -26,7 +26,7 @@ async def create_task(title: str, description: str, course_id: int,
     return result
 
 
-@router.get('/{course_id}/task/get/{task_id}/info', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
+@router.get('/{course_id}/{task_id}', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
 @cache(expire=CACHE_EXPIRE)
 async def get_task_info(course_id: int, task_id: int, task_service: Annotated[TaskService, Depends(task_service)],
                         user: User = Depends(get_current_user)):
@@ -34,7 +34,7 @@ async def get_task_info(course_id: int, task_id: int, task_service: Annotated[Ta
     return result
 
 
-@router.get('/{course_id}/task/get/{task_id}/files', status_code=status.HTTP_201_CREATED)
+@router.get('/{course_id}/{task_id}', status_code=status.HTTP_201_CREATED)
 @cache(expire=CACHE_EXPIRE)
 async def get_task_file(task_id: int, file_service: Annotated[FileService, Depends(file_service)],
                         user: User = Depends(get_current_user)):
@@ -56,7 +56,7 @@ async def get_task_file(task_id: int, file_service: Annotated[FileService, Depen
         return FileResponse(path=tmp.name, filename=f'{tmp.name}.zip', media_type='application/zip')
 
 
-@router.put('/{course_id}/task/update/{task_id}', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
+@router.put('/{course_id}/{task_id}', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
 async def update_task(title: str, description: str, course_id: int, task_id: int,
                       task_service: Annotated[TaskService, Depends(task_service)],
                       user: User = Depends(get_current_user)):
@@ -66,7 +66,7 @@ async def update_task(title: str, description: str, course_id: int, task_id: int
     return update_task_user
 
 
-@router.delete('/{class_id}/task/delete/{task_id}', status_code=status.HTTP_200_OK, response_model=SuccessDelete)
+@router.delete('/{class_id}/{task_id}', status_code=status.HTTP_200_OK, response_model=SuccessDelete)
 async def delete_task(task_id: int, task_service: Annotated[TaskService, Depends(task_service)],
                       user: User = Depends(get_current_user)):
     result = await task_service.delete_task(task_id=task_id)

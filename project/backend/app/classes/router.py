@@ -17,14 +17,14 @@ from project.backend.app.config import CACHE_EXPIRE
 router = APIRouter(prefix='/courses', tags=['Courses'])
 
 
-@router.post('/create', status_code=status.HTTP_201_CREATED, response_model=CourseSchema)
+@router.post('', status_code=status.HTTP_201_CREATED, response_model=CourseSchema)
 async def create_course(title: str, description: str, course_service: Annotated[CourseService, Depends(course_service)],
                         user: User = Depends(get_current_user)):
     result = await course_service.create_course(user_id=user.id, description=description, title=title)
     return result
 
 
-@router.get('/get/{course_id}', status_code=status.HTTP_200_OK, response_model=CourseSchema)
+@router.get('/{course_id}', status_code=status.HTTP_200_OK, response_model=CourseSchema)
 @cache(expire=CACHE_EXPIRE)
 async def get_course(course_id: int, course_service: Annotated[CourseService, Depends(course_service)],
                      user: User = Depends(get_current_user)):
@@ -32,7 +32,7 @@ async def get_course(course_id: int, course_service: Annotated[CourseService, De
     return course_user
 
 
-@router.put('/update/{course_id}', status_code=status.HTTP_201_CREATED, response_model=CourseSchema)
+@router.put('/{course_id}', status_code=status.HTTP_201_CREATED, response_model=CourseSchema)
 async def update_course(title: str, description: str, course_id: int,
                         course_service: Annotated[CourseService, Depends(course_service)],
                         user: User = Depends(get_current_user)):
@@ -40,7 +40,7 @@ async def update_course(title: str, description: str, course_id: int,
     return update_course_user
 
 
-@router.delete('/delete/{course_id}', status_code=status.HTTP_200_OK, response_model=SuccessDelete)
+@router.delete('/{course_id}', status_code=status.HTTP_200_OK, response_model=SuccessDelete)
 async def delete_class(course_id: int, class_service: Annotated[CourseService, Depends(course_service)],
                        user: User = Depends(get_current_user)):
     result = await class_service.delete_course(course_id=course_id)
