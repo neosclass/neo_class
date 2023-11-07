@@ -28,7 +28,7 @@ class File(Base):
 
     id: Mapped[int] = mapped_column(primary_key=True, nullable=False)
     object_name: Mapped[str] = mapped_column(nullable=False)
-    task_id: Mapped[int] = mapped_column(ForeignKey('task.id'))
+    task_id: Mapped[int] = mapped_column(ForeignKey('task.id', ondelete='CASCADE'))
 
 
 class Comment(Base):

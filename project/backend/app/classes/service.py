@@ -19,5 +19,5 @@ class CourseService:
         return user_course
 
     async def delete_course(self, course_id: int):
-        await self.class_repo.delete(id=course_id)
+        await self.course_repo.delete(id=course_id)
         return {"success": True}

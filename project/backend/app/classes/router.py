@@ -47,7 +47,7 @@ async def update_course(title: str, description: str, course_id: int,
     return update_course_user
 
 
-@router.delete('/delete/course_id}', status_code=status.HTTP_200_OK, response_model=SuccessDelete)
+@router.delete('/delete/{course_id}', status_code=status.HTTP_200_OK, response_model=SuccessDelete)
 async def delete_class(course_id: int, class_service: Annotated[CourseService, Depends(course_service)],
                        user: User = Depends(get_current_user)):
     result = await class_service.delete_course(course_id=course_id)
