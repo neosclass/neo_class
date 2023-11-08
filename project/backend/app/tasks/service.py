@@ -13,6 +13,7 @@ class TaskService:
     def __init__(self, users_repo: AbstractRepository):
         self.task_repo: AbstractRepository = users_repo()
 
+    # TODO сделать валидацию по расширениям файла
     async def create_task(self, course_id: int, description: str, title: str, files: list[UploadFile]):
         object_names = []
         for file in files:
