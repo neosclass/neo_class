@@ -17,9 +17,11 @@ class TaskService:
         object_names = []
         for file in files:
             file_uuid = str(uuid.uuid4())
-            client.put_object(BUCKET, file_uuid, data=file.file, content_type=file.content_type, length=-1,
+            client.put_object(BUCKET, file_uuid+'.jpg', data=file.file, content_type=file.content_type, length=-1,
                               part_size=10 * 1024 * 1024)
-            object_names.append(file_uuid)
+            print('*'*100)
+            print(file_uuid+'.jpg')
+            object_names.append(file_uuid+'.jpg')
         user_task = await self.task_repo.create_task(course_id=course_id, description=description, title=title,
                                                      object_names=object_names)
         return user_task
