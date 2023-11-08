@@ -10,6 +10,7 @@
 * Start the project with ``docker compose --env-file project/backend/app/.env up --build
 `` commands
 * The project is available at http://localhost:8000/
+* The MinIO console is available at http://localhost:9001/
 
 ---
 Use flake8 ``flake8 --config .flake8 .``
