@@ -26,7 +26,7 @@ async def get_documentation():
 
 origins = [
     "http://frontend:5000",  # React app
-    "http://localhost:3100",  # React app localhost
+    "http://localhost:3000",  # React app localhost
     "http://localhost:8000",
 ]
 
