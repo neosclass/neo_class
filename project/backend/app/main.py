@@ -28,21 +28,31 @@ origins = [
     "http://frontend:5000",  # React app
     "http://localhost:3000",  # React app localhost
     "http://localhost:8000",
+    "http://localhost:3000",
 ]
+
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=origins,
+#     allow_credentials=True,
+#     allow_methods=["GET", "POST", "OPTIONS", "DELETE", "PATCH", "PUT"],
+#     allow_headers=[
+#         "Content-Type",
+#         "Set-Cookie",
+#         "Access-Control-Allow-Headers",
+#         "Access-Control-Allow-Origin",
+#         "Authorization",
+#     ],
+# )
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=origins,
+    allow_origins=["*"],  # Разрешаем доступ со всех доменов, замените "*" на нужный домен, если требуется
     allow_credentials=True,
-    allow_methods=["GET", "POST", "OPTIONS", "DELETE", "PATCH", "PUT"],
-    allow_headers=[
-        "Content-Type",
-        "Set-Cookie",
-        "Access-Control-Allow-Headers",
-        "Access-Control-Allow-Origin",
-        "Authorization",
-    ],
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
+
 
 
 @app.on_event("startup")

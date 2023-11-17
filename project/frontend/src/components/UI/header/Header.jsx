@@ -16,11 +16,11 @@ const Header = () => {
     return (
         <div>
             <div className={classes.tab}>
-                <button onClick={homeClick} class="tablinks">Домашняя страница</button>
-                <button class="tablinks">Найти курс</button>
-                <button class="tablinks">Создать курс</button>
-                <button class="tablinks">Мои курсы</button>
-                <button onClick={profileClick} class="tablinks">Мой профиль</button>
+                <button onClick={homeClick}>Домашняя страница</button>
+                <button>Найти курс</button>
+                <button>Создать курс</button>
+                <button>Мои курсы</button>
+                <button onClick={profileClick}>Мой профиль</button>
             </div>
         </div>
     );

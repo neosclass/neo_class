@@ -3,22 +3,18 @@ import Header from "./UI/header/Header";
 
 const MyProfile = (props) => {
 
-    const [users, setUsers] = useState([])
-
-    const fetchUserData = () => {
-      fetch("http://localhost:8000/users/profile")
-        .then(response => {
-          return response.json()
-        })
-        .then(data => {
-          setUsers(data)
-        })
-    }
-  
-    useEffect(() => {
-      fetchUserData()
-    }, [])
-  
+      const [data, setData] = useState([]);
+    
+      useEffect(() => {
+        fetch("http://localhost:8000/users/profile", {method: 'GET',
+        credentials: 'same-origin' })
+          .then(response => response.json())
+          .then(jsonData => setData(jsonData))
+          .catch(error => console.error('Error fetching data:', error));
+      }, []);
+    
+      
+      console.log(data);
 
 
     return (
@@ -27,8 +23,8 @@ const MyProfile = (props) => {
             <h2>Мой профиль</h2>
             <div>
                 <ul>
-                    {users.map(item => (
-                    <li key={item.id}>{item.id}</li>
+                    {[data].map(item => (
+                    <li key={item.id}>{item.email}</li>
                     ))}
                 </ul>
             </div>
