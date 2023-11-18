@@ -1,20 +1,48 @@
 import React, {useState, useEffect} from "react";
 import Header from "./UI/header/Header";
+import axios from "axios";
+import { useNavigate} from "react-router-dom";
 
 const MyProfile = (props) => {
+      const navigate = useNavigate()
 
       const [data, setData] = useState([]);
-    
-      useEffect(() => {
+
+      const HomePage = () => {
+        navigate("/");
+    }
+
+      const NotLogin = () => {
+        navigate("/notlogin")
+      }
+      
         fetch("http://localhost:8000/users/profile", {method: 'GET',
         credentials: 'include' })
-          .then(response => response.json())
+          .then(response => {
+            if (response.status === 401){
+                NotLogin()
+            }
+            else {
+                return response.json()
+            }
+          })
           .then(jsonData => setData(jsonData))
           .catch(error => console.error('Error fetching data:', error));
-      }, []);
     
       
-      console.log(data);
+      const deleteData = async () => {
+        try {
+          await axios.delete('http://localhost:8000/auth/logout', {withCredentials: true});
+        } catch (error) {
+          console.error('Error deleting data:', error);
+        }
+      };
+
+      const HandleButton = async () => {
+        await deleteData();
+        HomePage();
+      };
+    
 
 
     return (
@@ -35,6 +63,8 @@ const MyProfile = (props) => {
                     <li key={3}>Фамилия: {item.surname} </li>
                     ))}
                 </ul>
+
+                <button onClick={HandleButton}>Выйти из аккаунта</button>
             </div>
         </div>
     );

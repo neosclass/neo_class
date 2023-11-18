@@ -6,11 +6,12 @@ const Home = () => {
     const navigate = useNavigate()
 
     const registerForm = () => {
-        navigate("/register");
+        navigate("/auth/register");
     }
     const loginForm = () => {
-        navigate("/login");
+        navigate("/auth/login");
     }
+
 
     return (
         <div>
@@ -19,7 +20,7 @@ const Home = () => {
 
             <div>
                 <button onClick={registerForm}>Зарегистрироваться</button>
-                <button onClick={loginForm}>Залогиниться</button>
+                <button onClick={loginForm}>Войти в аккаунт</button>
             </div>
 
         </div>
