@@ -7,7 +7,7 @@ const MyProfile = (props) => {
     
       useEffect(() => {
         fetch("http://localhost:8000/users/profile", {method: 'GET',
-        credentials: 'same-origin' })
+        credentials: 'include' })
           .then(response => response.json())
           .then(jsonData => setData(jsonData))
           .catch(error => console.error('Error fetching data:', error));
@@ -24,7 +24,15 @@ const MyProfile = (props) => {
             <div>
                 <ul>
                     {[data].map(item => (
-                    <li key={item.id}>{item.email}</li>
+                    <li key={1}>Почта: {item.email} </li>
+                    ))}
+
+                    {[data].map(item => (
+                    <li key={2}>Имя: {item.name} </li>
+                    ))}
+
+                    {[data].map(item => (
+                    <li key={3}>Фамилия: {item.surname} </li>
                     ))}
                 </ul>
             </div>

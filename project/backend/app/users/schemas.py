@@ -7,8 +7,10 @@ class UserSchema(BaseModel):
     id: int
     email: str
     name: str
+    surname: str
     registered_at: datetime
     password: str
+    is_admin: bool
 
 
 class SuccessPost(BaseModel):

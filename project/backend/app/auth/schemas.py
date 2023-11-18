@@ -31,28 +31,10 @@ class UserAuthRegisterSchema(BaseModel):
 
         return email
 
-    class Config:
-        schema_extra = {
-            'example': {
-                'name': 'Ivan',
-                'surname': 'Ivanov',
-                'email': 'ivanov@gmail.com',
-                'password': 'Password1234!',
-            }
-        }
-
 
 class UserAuthLoginSchema(BaseModel):
     email: EmailStr
     password: str
-
-    class Config:
-        schema_extra = {
-            'example': {
-                'email': 'ivanov@gmail.com',
-                'password': 'Password1234!',
-            }
-        }
 
 
 class UserAccessTokenResponseSchema(BaseModel):

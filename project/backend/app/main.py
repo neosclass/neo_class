@@ -47,12 +47,11 @@ origins = [
 
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],  # Разрешаем доступ со всех доменов, замените "*" на нужный домен, если требуется
+    allow_origins=['*'],
     allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
+    allow_methods=['*'],
+    allow_headers=['*'],
 )
-
 
 
 @app.on_event("startup")
