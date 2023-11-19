@@ -28,3 +28,10 @@ class CreateCourse(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class CourseId(BaseModel):
+    id: int
+
+    class Config:
+        orm_mode = True

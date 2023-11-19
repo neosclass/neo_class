@@ -25,3 +25,7 @@ class CourseService:
     async def get_all_courses_private(self, user_id: int):
         all_courses = await self.course_repo.get_all_courses_private(user_id=user_id)
         return all_courses
+
+    async def get_all_tasks_from_course(self, course_id: int):
+        all_tasks = await self.course_repo.get_all_tasks_from_course(course_id=course_id)
+        return all_tasks

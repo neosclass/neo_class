@@ -8,6 +8,7 @@ import NotLogin from './components/NotLogin';
 import AllPrivateCourses from './components/AllPrivateCourses';
 import FindCourse from './components/FindCourse';
 import CreateCourse from './components/CreateCourse';
+import TasksFromCourse from './components/TasksFromCourse';
 
 function App() {
 
@@ -24,6 +25,7 @@ function App() {
                     <Route path='/courses' Component={AllPrivateCourses}/>
                     <Route path='/users/add/course' Component={FindCourse}/>
                     <Route path='/courses/create' Component={CreateCourse}/>
+                    <Route path='/courses/tasks/:course_id' Component={TasksFromCourse}/>
                 </Routes>
             </div>
         </BrowserRouter>

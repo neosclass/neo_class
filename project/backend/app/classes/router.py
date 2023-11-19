@@ -10,7 +10,7 @@ from project.backend.app.classes.service import CourseService
 
 from project.backend.app.classes.dependencies import course_service
 
-from project.backend.app.classes.schemas import CourseSchema, SuccessDelete, CreateCourse
+from project.backend.app.classes.schemas import CourseSchema, SuccessDelete, CreateCourse, CourseId
 
 from project.backend.app.config import CACHE_EXPIRE
 
@@ -38,6 +38,13 @@ async def get_all_courses_private(course_service: Annotated[CourseService, Depen
                                   user: User = Depends(get_current_user)):
     all_courses = await course_service.get_all_courses_private(user_id=user.id)
     return all_courses
+
+
+@router.get('/tasks/{course_id}', status_code=status.HTTP_200_OK)
+async def get_all_courses_private(course_id: int, course_service: Annotated[CourseService, Depends(course_service)],
+                                  user: User = Depends(get_current_user)):
+    all_tasks = await course_service.get_all_tasks_from_course(course_id=course_id)
+    return all_tasks
 
 
 @router.put('/{course_id}', status_code=status.HTTP_201_CREATED, response_model=CourseSchema)

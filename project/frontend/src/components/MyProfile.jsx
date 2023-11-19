@@ -15,7 +15,9 @@ const MyProfile = (props) => {
       const NotLogin = () => {
         navigate("/notlogin")
       }
-      
+
+
+      useEffect(() => {
         fetch("http://localhost:8000/users/profile", {method: 'GET',
         credentials: 'include' })
           .then(response => {
@@ -28,6 +30,8 @@ const MyProfile = (props) => {
           })
           .then(jsonData => setData(jsonData))
           .catch(error => console.error('Error fetching data:', error));
+      }, [])
+    
     
       
       const deleteData = async () => {

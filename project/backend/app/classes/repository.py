@@ -33,3 +33,12 @@ class CourseRepository(SQLAlchemyRepository):
             result = result.scalars().first()
 
             return result.classes
+
+    @classmethod
+    async def get_all_tasks_from_course(cls, course_id: int):
+        async with async_session_maker() as session:
+            this_course = select(Course).filter_by(id=course_id)
+            result = await session.execute(this_course)
+            result = result.scalars().first()
+
+            return result.tasks

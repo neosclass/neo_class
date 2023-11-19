@@ -14,6 +14,10 @@ const AllPrivateCourses = () => {
     const NotLogin = () => {
       navigate("/notlogin")
     }
+
+    const Task = (course_id) => {
+        navigate(`/courses/tasks/${course_id}`)
+    }
     
 
         useEffect(() => {
@@ -42,7 +46,7 @@ const AllPrivateCourses = () => {
                     <h2>Название: {item.title}</h2>
                     <h3>Описание: {item.description}</h3>
                     <p>Код курса: {item.id}</p>
-                    <button>Зайти в курс</button>
+                    <button onClick={() => Task(item.id)}>Зайти в курс</button>
                     </div>
                 ))}
             </div>
