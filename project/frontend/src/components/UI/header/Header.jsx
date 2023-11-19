@@ -21,12 +21,16 @@ const Header = () => {
         navigate('/users/add/course')
     }
 
+    const createCourse = () => {
+        navigate('/courses/create')
+    }
+
     return (
         <div>
             <div className={classes.tab}>
                 <button onClick={homeClick}>Домашняя страница</button>
                 <button onClick={findCourse}>Найти курс</button>
-                <button>Создать курс</button>
+                <button onClick={createCourse}>Создать курс</button>
                 <button onClick={allCoursesPrivate}>Мои курсы</button>
                 <button onClick={profileClick}>Мой профиль</button>
             </div>

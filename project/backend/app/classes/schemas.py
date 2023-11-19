@@ -20,3 +20,11 @@ class SuccessDelete(BaseModel):
 
     class Config:
         orm_mode = True
+
+
+class CreateCourse(BaseModel):
+    title: str
+    description: str
+
+    class Config:
+        orm_mode = True

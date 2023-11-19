@@ -7,6 +7,7 @@ import Login from './components/Login';
 import NotLogin from './components/NotLogin';
 import AllPrivateCourses from './components/AllPrivateCourses';
 import FindCourse from './components/FindCourse';
+import CreateCourse from './components/CreateCourse';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
                     <Route path='/notlogin' Component={NotLogin}/>
                     <Route path='/courses' Component={AllPrivateCourses}/>
                     <Route path='/users/add/course' Component={FindCourse}/>
+                    <Route path='/courses/create' Component={CreateCourse}/>
                 </Routes>
             </div>
         </BrowserRouter>

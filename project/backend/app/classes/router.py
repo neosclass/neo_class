@@ -1,4 +1,3 @@
-from select import select
 from typing import Annotated
 
 from fastapi import APIRouter, status, Depends
@@ -11,19 +10,18 @@ from project.backend.app.classes.service import CourseService
 
 from project.backend.app.classes.dependencies import course_service
 
-from project.backend.app.classes.schemas import CourseSchema, SuccessDelete
+from project.backend.app.classes.schemas import CourseSchema, SuccessDelete, CreateCourse
 
 from project.backend.app.config import CACHE_EXPIRE
-
-from project.backend.app.database import async_session_maker
 
 router = APIRouter(prefix='/courses', tags=['Courses'])
 
 
 @router.post('', status_code=status.HTTP_201_CREATED, response_model=CourseSchema)
-async def create_course(title: str, description: str, course_service: Annotated[CourseService, Depends(course_service)],
+async def create_course(create_course: CreateCourse, course_service: Annotated[CourseService, Depends(course_service)],
                         user: User = Depends(get_current_user)):
-    result = await course_service.create_course(user_id=user.id, description=description, title=title)
+    result = await course_service.create_course(user_id=user.id, description=create_course.description,
+                                                title=create_course.title)
     return result
 
 

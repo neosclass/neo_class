@@ -39,9 +39,9 @@ const AllPrivateCourses = () => {
             <div>
                 {data.map(item => (
                     <div key={item.id}>
-                    <p>{item.id}</p>
                     <h2>Название: {item.title}</h2>
                     <h3>Описание: {item.description}</h3>
+                    <p>Код курса: {item.id}</p>
                     <button>Зайти в курс</button>
                     </div>
                 ))}
