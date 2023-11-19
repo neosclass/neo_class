@@ -9,19 +9,23 @@ const TasksFromCourse = ({ match }) => {
 
     const [data, setData] = useState([]);
 
+    const HomePage = () => {
+      navigate("/");
+  }
+
     const NotLogin = () => {
         navigate("/notlogin")
       }
 
     useEffect(() => {
-        fetch("http://localhost:8000/courses/tasks/${course_id}", {method: 'GET',
+        fetch(`http://localhost:8000/courses/tasks/${course_id}`, {method: 'GET',
         credentials: 'include' })
           .then(response => {
             if (response.status === 401){
                 NotLogin()
             }
             else {
-                return response.json()
+                return response.json();
             }
           })
           .then(jsonData => setData(jsonData))
@@ -32,8 +36,21 @@ const TasksFromCourse = ({ match }) => {
 
     return (
       <div>
-        <h2>Data Component</h2>
-        <p>{course_id}</p>
+        <h1>Код курса: {course_id}</h1>
+
+        <div>
+                {data.map(item => (
+                    <div key={item.id}>
+                      <h2>Название: {item.title}</h2>
+                      <h3>Описание: {item.description}</h3>
+                    </div>
+                ))}
+        </div>
+
+
+        <div>
+          <button onClick={HomePage}>Главная страница</button>
+        </div>
       </div>
     );
   };

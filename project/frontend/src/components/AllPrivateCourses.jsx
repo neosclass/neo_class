@@ -7,10 +7,6 @@ const AllPrivateCourses = () => {
 
     const [data, setData] = useState([]);
 
-    const HomePage = () => {
-      navigate("/");
-  }
-
     const NotLogin = () => {
       navigate("/notlogin")
     }
