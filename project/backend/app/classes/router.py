@@ -1,3 +1,4 @@
+from select import select
 from typing import Annotated
 
 from fastapi import APIRouter, status, Depends
@@ -13,6 +14,8 @@ from project.backend.app.classes.dependencies import course_service
 from project.backend.app.classes.schemas import CourseSchema, SuccessDelete
 
 from project.backend.app.config import CACHE_EXPIRE
+
+from project.backend.app.database import async_session_maker
 
 router = APIRouter(prefix='/courses', tags=['Courses'])
 
@@ -30,6 +33,13 @@ async def get_course(course_id: int, course_service: Annotated[CourseService, De
                      user: User = Depends(get_current_user)):
     course_user = await course_service.get_course(course_id)
     return course_user
+
+
+@router.get('', status_code=status.HTTP_200_OK, response_model=list[CourseSchema])
+async def get_all_courses_private(course_service: Annotated[CourseService, Depends(course_service)],
+                                  user: User = Depends(get_current_user)):
+    all_courses = await course_service.get_all_courses_private(user_id=user.id)
+    return all_courses
 
 
 @router.put('/{course_id}', status_code=status.HTTP_201_CREATED, response_model=CourseSchema)

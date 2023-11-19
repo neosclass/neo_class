@@ -24,3 +24,12 @@ class CourseRepository(SQLAlchemyRepository):
             await session.commit()
 
             return this_course
+
+    @classmethod
+    async def get_all_courses_private(cls, user_id: int):
+        async with async_session_maker() as session:
+            this_user = select(User).filter_by(id=user_id)
+            result = await session.execute(this_user)
+            result = result.scalars().first()
+
+            return result.classes

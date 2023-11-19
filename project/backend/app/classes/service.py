@@ -21,3 +21,7 @@ class CourseService:
     async def delete_course(self, course_id: int):
         await self.course_repo.delete(id=course_id)
         return {"success": True}
+
+    async def get_all_courses_private(self, user_id: int):
+        all_courses = await self.course_repo.get_all_courses_private(user_id=user_id)
+        return all_courses
