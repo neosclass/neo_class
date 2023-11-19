@@ -1,8 +1,14 @@
 import React, {useState} from "react";
 import axios from 'axios';
 import Header from "./UI/header/Header";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
+        const navigate = useNavigate()
+
+        const HomePage = () => {
+          navigate('/')
+        }
 
         const [formData, setFormData] = useState({
           email: '',
@@ -19,7 +25,7 @@ const Login = () => {
           try {
             const response = await axios.post('http://localhost:8000/auth/login', formData, {withCredentials: true});
             // Handle the response data here
-            console.log(response.data);
+            HomePage()
           } catch (error) {
             // Handle error or display error message
             console.error(error);
