@@ -16,6 +16,10 @@ const TasksFromCourse = ({ match }) => {
     const NotLogin = () => {
         navigate("/notlogin")
       }
+    
+    const Task = (course_id, task_id) => {
+      navigate(`/courses/tasks/${course_id}/${task_id}`)
+    }
 
     useEffect(() => {
         fetch(`http://localhost:8000/courses/tasks/${course_id}`, {method: 'GET',
@@ -43,8 +47,9 @@ const TasksFromCourse = ({ match }) => {
                     <div key={item.id}>
                       <h2>Название: {item.title}</h2>
                       <h3>Описание: {item.description}</h3>
-                    </div>
-                ))}
+                      <button onClick={() => Task(course_id, item.id)}>Перейти к заданию</button>
+          </div>
+                ))};
         </div>
 
 
