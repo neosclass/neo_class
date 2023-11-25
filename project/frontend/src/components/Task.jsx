@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import {useNavigate} from "react-router-dom";
+import DownloadButton from "./UI/DownloadButton/DownloadButton";
 
 const Task = () => {
 
@@ -36,17 +37,19 @@ const Task = () => {
 
   return (
     
-        <div>
+      <div>
             <div key={data.id}>
               <h2>Название: {data.title}</h2>
               <h3>Описание: {data.description}</h3>
             </div>
 
-        <div>
-
-
-            <button onClick={HomePage}>Главная страница</button>
-        </div>
+          <div>
+            <DownloadButton />
+          </div>
+          
+            <div>
+                <button onClick={HomePage}>Главная страница</button>
+            </div>
     </div>
   );
 };
