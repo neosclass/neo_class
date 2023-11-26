@@ -20,3 +20,5 @@ SECRET_KEY = os.environ.get("SECRET_KEY")
 REDIS_HOST = os.environ.get("REDIS_HOST")
 REDIS_PORT = os.environ.get("REDIS_PORT")
 CACHE_EXPIRE = os.environ.get("CACHE_EXPIRE")
+
+JWT_SECRET = os.environ.get("JWT_SECRET")

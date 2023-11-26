@@ -35,6 +35,7 @@ const Registration = () => {
             console.error(error);
           }
         };
+
       
         return (
 
