@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import {useNavigate} from "react-router-dom";
+import Header from "./UI/header/Header";
 
 const TasksFromCourse = ({ match }) => {
     const { course_id } = useParams();
@@ -40,6 +41,8 @@ const TasksFromCourse = ({ match }) => {
 
     return (
       <div>
+          <Header />
+        
         <h1>Код курса: {course_id}</h1>
 
         <div>

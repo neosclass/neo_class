@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { useParams } from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import DownloadButton from "./UI/DownloadButton/DownloadButton";
+import Header from "./UI/header/Header";
 
 const Task = () => {
 
@@ -37,7 +38,9 @@ const Task = () => {
 
   return (
     
+    
       <div>
+          <Header />
             <div key={data.id}>
               <h2>Название: {data.title}</h2>
               <h3>Описание: {data.description}</h3>
