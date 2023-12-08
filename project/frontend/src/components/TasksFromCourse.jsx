@@ -10,6 +10,9 @@ const TasksFromCourse = ({ match }) => {
 
     const [data, setData] = useState([]);
 
+
+    const [course_creator, setCreator] = useState([])
+
     const HomePage = () => {
       navigate("/");
   }
@@ -37,6 +40,25 @@ const TasksFromCourse = ({ match }) => {
           .catch(error => console.error('Error fetching data:', error));
     }, [])
 
+  useEffect(() => {
+    fetch(`http://localhost:8000/courses/${course_id}`, {method: 'GET',
+    credentials: 'include' })
+      .then(response => {
+        if (response.status === 401){
+            NotLogin()
+        }
+        else {
+            return response.json();
+        }
+      })
+      .then(jsonData => setCreator(jsonData))
+      .catch(error => console.error('Error fetching data:', error));
+}, [])
+
+console.log(course_creator.created_by)
+console.log(course_id)
+
+
       
 
     return (
@@ -44,6 +66,10 @@ const TasksFromCourse = ({ match }) => {
           <Header />
         
         <h1>Код курса: {course_id}</h1>
+
+        <div>
+          {course_creator.created_by != undefined ? <button>Добавить задание</button> : <p></p>}
+        </div>
 
         <div>
                 {data.map(item => (
