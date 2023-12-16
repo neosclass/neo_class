@@ -10,6 +10,7 @@ import FindCourse from './components/FindCourse';
 import CreateCourse from './components/CreateCourse';
 import TasksFromCourse from './components/TasksFromCourse';
 import Task from './components/Task';
+import CreateTask from './components/CreateTask';
 
 function App() {
 
@@ -28,6 +29,7 @@ function App() {
                     <Route path='/courses/create' Component={CreateCourse}/>
                     <Route path='/courses/tasks/:course_id' Component={TasksFromCourse}/>
                     <Route path='/courses/tasks/:course_id/:task_id' Component={Task}/>
+                    <Route path='/tasks/:course_id' Component={CreateTask}/>
                 </Routes>
             </div>
         </BrowserRouter>

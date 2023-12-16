@@ -8,7 +8,7 @@ from fastapi_cache.decorator import cache
 
 from project.backend.app.tasks.service import TaskService, FileService
 from project.backend.app.tasks.dependencies import task_service, file_service
-from project.backend.app.tasks.schemas import TaskSchema, CreateTaskSchema, SuccessDelete
+from project.backend.app.tasks.schemas import TaskSchema, CreateTaskSchema, SuccessDelete, CreateTask
 from project.backend.app.utils.s3 import client
 
 from project.backend.app.users.models import User

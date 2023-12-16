@@ -25,6 +25,10 @@ const TasksFromCourse = ({ match }) => {
       navigate(`/courses/tasks/${course_id}/${task_id}`)
     }
 
+    const CreateTask = () => {
+      navigate(`/tasks/${course_id}`)
+    }
+
     useEffect(() => {
         fetch(`http://localhost:8000/courses/tasks/${course_id}`, {method: 'GET',
         credentials: 'include' })
@@ -55,9 +59,6 @@ const TasksFromCourse = ({ match }) => {
       .catch(error => console.error('Error fetching data:', error));
 }, [])
 
-console.log(course_creator.created_by)
-console.log(course_id)
-
 
       
 
@@ -68,7 +69,7 @@ console.log(course_id)
         <h1>Код курса: {course_id}</h1>
 
         <div>
-          {course_creator.created_by != undefined ? <button>Добавить задание</button> : <p></p>}
+          {course_creator.created_by != undefined ? <button onClick={CreateTask}>Добавить задание</button> : <p></p>}
         </div>
 
         <div>

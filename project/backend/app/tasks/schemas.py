@@ -25,6 +25,14 @@ class CreateTaskSchema(BaseModel):
         orm_mode = True
 
 
+class CreateTask(BaseModel):
+    title: str
+    description: str
+
+    class Config:
+        orm_mode = True
+
+
 class TaskSchema(BaseModel):
     id: int
     course_id: int
