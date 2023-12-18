@@ -24,7 +24,7 @@ function CreateTask() {
       formData.append('title', title);
       formData.append('description', description);
   
-      axios.post(`http://localhost:8000/tasks/${course_id}`, formData, {credentials: 'include', 
+      axios.post(`http://localhost:8000/tasks/${course_id}`, formData, {withCredentials: true, 
         headers: {
           'Content-Type': 'multipart/form-data'
         }

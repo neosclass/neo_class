@@ -2,7 +2,7 @@ import tempfile
 import zipfile
 from typing import Annotated
 
-from fastapi import APIRouter, status, Depends, UploadFile, File
+from fastapi import APIRouter, status, Depends, UploadFile, File, Form
 from fastapi.responses import FileResponse
 from fastapi_cache.decorator import cache
 
@@ -18,13 +18,19 @@ from project.backend.app.config import CACHE_EXPIRE
 
 router = APIRouter(prefix='/tasks', tags=['Tasks'])
 
+# @router.post('/{course_id}', status_code=status.HTTP_201_CREATED, response_model=CreateTaskSchema)
+# async def create_task(title: str, description: str, course_id: int,
+#                       task_service: Annotated[TaskService, Depends(task_service)], files: list[UploadFile] = File(...),
+#                       user: User = Depends(get_current_user)):
+#     result = await task_service.create_task(course_id=course_id, description=description, title=title, files=files)
+#     return result
+
+
 @router.post('/{course_id}', status_code=status.HTTP_201_CREATED, response_model=CreateTaskSchema)
-async def create_task(title: str, description: str, course_id: int,
-                      task_service: Annotated[TaskService, Depends(task_service)], files: list[UploadFile] = File(...),
+async def create_task(course_id: int, task_service: Annotated[TaskService, Depends(task_service)], title: str = Form(...), description: str = Form(...), files: list[UploadFile] = File(...),
                       user: User = Depends(get_current_user)):
     result = await task_service.create_task(course_id=course_id, description=description, title=title, files=files)
     return result
-
 
 @router.get('/{course_id}/{task_id}/info', status_code=status.HTTP_201_CREATED, response_model=TaskSchema)
 @cache(expire=CACHE_EXPIRE)
