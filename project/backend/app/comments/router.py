@@ -4,7 +4,7 @@ from fastapi import APIRouter, status, Depends
 
 from project.backend.app.comments.dependencies import comment_service
 from project.backend.app.comments.service import CommentService
-from project.backend.app.comments.schemas import CommentSchema, SuccessDelete
+from project.backend.app.comments.schemas import CommentSchema, SuccessDelete, CommentAdd
 
 from project.backend.app.users.models import User
 from project.backend.app.auth.dependencies import get_current_user
@@ -13,9 +13,9 @@ router = APIRouter(prefix='/comment', tags=['Comments'])
 
 
 @router.post('/{task_id}', status_code=status.HTTP_201_CREATED, response_model=CommentSchema)
-async def create_comment(task_id: int, data: str, comment_service: Annotated[CommentService, Depends(comment_service)],
+async def create_comment(task_id: int, task_data: CommentAdd,  comment_service: Annotated[CommentService, Depends(comment_service)],
                          user: User = Depends(get_current_user)):
-    result = await comment_service.create_comment(user_id=user.id, task_id=task_id, data=data)
+    result = await comment_service.create_comment(user_id=user.id, task_id=task_id, data=task_data.data)
     return result
 
 

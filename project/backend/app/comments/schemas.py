@@ -15,6 +15,13 @@ class CommentSchema(BaseModel):
         orm_mode = True
 
 
+class CommentAdd(BaseModel):
+    data: str
+
+    class Config:
+        orm_mode = True
+
+
 class SuccessDelete(BaseModel):
     success: bool
 
