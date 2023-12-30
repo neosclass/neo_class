@@ -11,6 +11,7 @@ const Task = () => {
 
     const navigate = useNavigate();
 
+
     const [data, setData] = useState([]);
 
     const HomePage = () => {
@@ -20,6 +21,7 @@ const Task = () => {
     const NotLogin = () => {
           navigate("/notlogin")
     }
+  
 
     useEffect(() => {
         fetch(`http://localhost:8000/tasks/${course_id}/${task_id}/info`, {method: 'GET',
@@ -35,6 +37,7 @@ const Task = () => {
           .then(jsonData => setData(jsonData))
           .catch(error => console.error('Error fetching data:', error));
     }, [])
+
 
   return (
     

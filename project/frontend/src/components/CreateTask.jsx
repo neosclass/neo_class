@@ -6,6 +6,8 @@ import axios from "axios";
 
 
 function CreateTask() {
+    const navigate = useNavigate()
+
     const { course_id } = useParams();
     
     const [files, setFile] = useState(null);

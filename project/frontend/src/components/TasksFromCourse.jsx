@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import axios from 'axios';
 import { useParams } from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import Header from "./UI/header/Header";
@@ -12,6 +13,9 @@ const TasksFromCourse = ({ match }) => {
 
 
     const [course_creator, setCreator] = useState([])
+
+    const [userData, setUserData] = useState(0);
+
 
     const HomePage = () => {
       navigate("/");
@@ -28,6 +32,21 @@ const TasksFromCourse = ({ match }) => {
     const CreateTask = () => {
       navigate(`/tasks/${course_id}`)
     }
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('http://localhost:8000/users/get_current_user_id', {withCredentials: true});
+          setUserData(response.data);
+        } catch (error) {
+          console.error('Error fetching data: ', error);
+        }
+      };
+  
+      fetchData();
+    }, []);
+  
+
 
     useEffect(() => {
         fetch(`http://localhost:8000/courses/tasks/${course_id}`, {method: 'GET',
@@ -59,8 +78,16 @@ const TasksFromCourse = ({ match }) => {
       .catch(error => console.error('Error fetching data:', error));
 }, [])
 
+console.log(userData.user_id)
 
-      
+const myButton = () => {
+  if (course_creator.created_by === userData.user_id){
+  return <button onClick={CreateTask}>Добавить задание</button>
+}
+  else{
+  return <p></p>
+}
+}
 
     return (
       <div>
@@ -69,9 +96,12 @@ const TasksFromCourse = ({ match }) => {
         <h1>Код курса: {course_id}</h1>
 
         <div>
-          {course_creator.created_by != undefined ? <button onClick={CreateTask}>Добавить задание</button> : <p></p>}
+          {myButton()}
         </div>
 
+        <div>
+        {course_creator.created_by == userData.user_id ? <button onClick={CreateTask}>Добавить задание</button> : <p></p>}
+        </div>
         <div>
                 {data.map(item => (
                     <div key={item.id}>
