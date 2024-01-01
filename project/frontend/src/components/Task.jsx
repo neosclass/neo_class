@@ -1,9 +1,10 @@
 import React, {useState, useEffect} from "react";
-import axios from "axios";
+import axios, { all } from "axios";
 import { useParams } from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import DownloadButton from "./UI/DownloadButton/DownloadButton";
 import Header from "./UI/header/Header";
+import MyComponent from "./utils/dataArray";
 
 const Task = () => {
 
@@ -17,6 +18,11 @@ const Task = () => {
 
     const [datas, setText] = useState('');
 
+    const [course_creator, setCreator] = useState([])
+    const [userData, setUserData] = useState(0);
+
+    const [allComments, setAllComments] = useState([]);
+
 
     const HomePage = () => {
         navigate("/");
@@ -25,6 +31,50 @@ const Task = () => {
     const NotLogin = () => {
           navigate("/notlogin")
     }
+
+
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get(`http://localhost:8000/comment/${task_id}`, {withCredentials: true});
+          setAllComments(response.data);
+        } catch (error) {
+          console.error('Error fetching data: ', error);
+        }
+      };
+  
+      fetchData();
+    }, []);
+
+    useEffect(() => {
+      const fetchData = async () => {
+        try {
+          const response = await axios.get('http://localhost:8000/users/get_current_user_id', {withCredentials: true});
+          setUserData(response.data);
+        } catch (error) {
+          console.error('Error fetching data: ', error);
+        }
+      };
+  
+      fetchData();
+    }, []);
+
+    useEffect(() => {
+      fetch(`http://localhost:8000/courses/${course_id}`, {method: 'GET',
+      credentials: 'include' })
+        .then(response => {
+          if (response.status === 401){
+              NotLogin()
+          }
+          else {
+              return response.json();
+          }
+          
+        })
+        .then(jsonData => setCreator(jsonData))
+        .catch(error => console.error('Error fetching data:', error));
+  }, [])
 
     const handleSubmit = async () => {
         const formData = new FormData();
@@ -66,6 +116,7 @@ const Task = () => {
     }, [])
 
 
+
   return (
     
     
@@ -83,6 +134,25 @@ const Task = () => {
           <div>
             <textarea value={datas} onChange={(e) => setText(e.target.value)} />
             <button onClick={handleSubmit}>Добавить комментарий</button>
+          </div>
+
+          <div>
+            {course_creator.created_by == userData.user_id ? <p>allComments</p> : <p></p>}
+          </div>
+
+          <div>
+              {course_creator.created_by == userData.user_id ? allComments.map(item => (
+                    <div key={item.id}>
+                      <h2>Комментатор: {item.user_id}</h2>
+                      <h3>Комментарий: {item.data}</h3>
+                    </div>
+                    
+                )) : allComments.filter(comment => comment.user_id == userData.user_id).map(item => (
+                  <div key={item.id}>
+                    <h2>Комментатор: {item.user_id}</h2>
+                    <h3>Комментарий: {item.data}</h3>
+                  </div>))}
+    
           </div>
 
 

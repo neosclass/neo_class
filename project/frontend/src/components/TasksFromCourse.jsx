@@ -33,6 +33,7 @@ const TasksFromCourse = ({ match }) => {
       navigate(`/tasks/${course_id}`)
     }
 
+
     useEffect(() => {
       const fetchData = async () => {
         try {
@@ -78,27 +79,13 @@ const TasksFromCourse = ({ match }) => {
       .catch(error => console.error('Error fetching data:', error));
 }, [])
 
-console.log(userData.user_id)
 
-const myButton = () => {
-  if (course_creator.created_by === userData.user_id){
-  return <button onClick={CreateTask}>Добавить задание</button>
-}
-  else{
-  return <p></p>
-}
-}
 
     return (
       <div>
           <Header />
         
         <h1>Код курса: {course_id}</h1>
-
-        <div>
-          {myButton()}
-        </div>
-
         <div>
         {course_creator.created_by == userData.user_id ? <button onClick={CreateTask}>Добавить задание</button> : <p></p>}
         </div>
