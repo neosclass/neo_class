@@ -137,10 +137,6 @@ const Task = () => {
           </div>
 
           <div>
-            {course_creator.created_by == userData.user_id ? <p>allComments</p> : <p></p>}
-          </div>
-
-          <div>
               {course_creator.created_by == userData.user_id ? allComments.map(item => (
                     <div key={item.id}>
                       <h2>Комментатор: {item.user_id}</h2>
