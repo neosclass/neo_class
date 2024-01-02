@@ -5,6 +5,7 @@ import {useNavigate} from "react-router-dom";
 import DownloadButton from "./UI/DownloadButton/DownloadButton";
 import Header from "./UI/header/Header";
 import MyComponent from "./utils/dataArray";
+import { HeaderMegaMenu } from "./HeaderMegaMenu/HeaderMegaMenu";
 
 const Task = () => {
 
@@ -121,7 +122,7 @@ const Task = () => {
     
     
       <div>
-          <Header />
+          <HeaderMegaMenu/>
             <div key={data.id}>
               <h2>Название: {data.title}</h2>
               <h3>Описание: {data.description}</h3>

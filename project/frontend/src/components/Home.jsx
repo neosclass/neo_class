@@ -2,30 +2,34 @@ import React from "react";
 import Header from "./UI/header/Header";
 import { useNavigate } from "react-router-dom";
 import { HeaderMegaMenu } from "./HeaderMegaMenu/HeaderMegaMenu";
-
+import { Center, Text, Container } from '@mantine/core';
 
 const Home = () => {
-    const navigate = useNavigate()
-
-    const registerForm = () => {
-        navigate("/auth/register");
-    }
-    const loginForm = () => {
-        navigate("/auth/login");
-    }
-
 
     return (
         <div>
-            <HeaderMegaMenu/>
-            <h2>This project optimizes communication between teacher and student</h2>
-
             <div>
-                <button onClick={registerForm}>Зарегистрироваться</button>
-                <button onClick={loginForm}>Войти в аккаунт</button>
+                <Container fluid>
+                    <HeaderMegaMenu/>
+                </Container>
             </div>
 
+            <div>
+                <Container fluid>
+                    <Center>
+                    <Text style={{ fontSize: '50px' }} fw={700}>Создавай курсы и присоединяйся к ним</Text>
+                    </Center>
+                </Container>
+                <Container fluid h={50}>
+                    <Center>
+                    <Text style={{ fontSize: '20px' }} fs='italic'>Быть умным и хорошо учиться — две разные вещи. </Text>
+                    </Center>
+                </Container>
+            </div>
+
+
         </div>
+        
     );
 };
 
