@@ -103,7 +103,7 @@ export function HeaderMegaMenu() {
             <a href="/courses" className={classes.link}>
               Мои курсы
             </a>
-            <a href="/users/profile'" className={classes.link}>
+            <a href="/users/profile" className={classes.link}>
               Аккаунт
             </a>
           <Divider my="sm" />
