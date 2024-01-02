@@ -7,7 +7,9 @@ import Header from "./UI/header/Header";
 import MyComponent from "./utils/dataArray";
 import { HeaderMegaMenu } from "./HeaderMegaMenu/HeaderMegaMenu";
 import { FooterCentered } from "./FooterCentered/FooterCentered";
-import { Paper } from "@mantine/core";
+import { Container, Paper } from "@mantine/core";
+import { TaskInfo } from "./TaskInfo/TaskInfo";
+import { CommentHtml } from "./CommentsTask/CommentsTask";
 
 const Task = () => {
 
@@ -131,6 +133,16 @@ const Task = () => {
     
       <div>
           <HeaderMegaMenu/>
+
+
+          <div>
+            <Container size='xs'>
+                <TaskInfo/>
+            </Container>
+          </div>
+
+
+          
             <div key={data.id}>
               <h2>Название: {data.title}</h2>
               <h3>Описание: {data.description}</h3>
@@ -159,11 +171,6 @@ const Task = () => {
                   </div>))}
     
           </div>
-
-
-            <div>
-                <button onClick={HomePage}>Главная страница</button>
-            </div>
 
 
             <div>

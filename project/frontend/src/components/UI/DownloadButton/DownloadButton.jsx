@@ -1,5 +1,6 @@
 import React from 'react';
 import { useParams } from "react-router-dom";
+import { Button } from '@mantine/core';
 
 const DownloadButton = () => {
     const { course_id } = useParams();
@@ -37,7 +38,7 @@ const DownloadButton = () => {
   
 
   return (
-    <button onClick={handleDownload}>Download File</button>
+    <Button radius="xl" style={{ flex: 1 }} variant='default' onClick={handleDownload}>Скачать файл</Button>
   );
 };
 
