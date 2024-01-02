@@ -1,6 +1,8 @@
 import React from "react";
 import Header from "./UI/header/Header";
 import { useNavigate } from "react-router-dom";
+import { HeaderMegaMenu } from "./HeaderMegaMenu/HeaderMegaMenu";
+
 
 const Home = () => {
     const navigate = useNavigate()
@@ -15,7 +17,7 @@ const Home = () => {
 
     return (
         <div>
-            <Header />
+            <HeaderMegaMenu/>
             <h2>This project optimizes communication between teacher and student</h2>
 
             <div>
