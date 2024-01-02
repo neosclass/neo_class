@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import Header from "./UI/header/Header";
 import { useNavigate } from "react-router-dom";
+import { HeaderMegaMenu } from "./HeaderMegaMenu/HeaderMegaMenu";
 
 const AllPrivateCourses = () => {
     const navigate = useNavigate()
@@ -34,7 +35,7 @@ const AllPrivateCourses = () => {
 
     return (
         <div>
-            <Header />
+            <HeaderMegaMenu/>
 
             <div>
                 {data.map(item => (

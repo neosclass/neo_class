@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import axios from 'axios';
 import Header from "./UI/header/Header";
 import { useNavigate } from "react-router-dom";
+import { HeaderMegaMenu } from "./HeaderMegaMenu/HeaderMegaMenu";
 
 const Registration = () => {
         const navigate = useNavigate()
@@ -40,7 +41,7 @@ const Registration = () => {
         return (
 
             <div>
-                <Header/>
+                <HeaderMegaMenu/>
 
                     <form onSubmit={handleSubmit}>
                         <input

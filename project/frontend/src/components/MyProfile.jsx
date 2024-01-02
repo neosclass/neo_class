@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import Header from "./UI/header/Header";
 import axios from "axios";
 import { useNavigate} from "react-router-dom";
+import { HeaderMegaMenu } from "./HeaderMegaMenu/HeaderMegaMenu";
 
 const MyProfile = (props) => {
       const navigate = useNavigate()
@@ -51,7 +52,7 @@ const MyProfile = (props) => {
 
     return (
         <div>
-            <Header />
+            <HeaderMegaMenu/>
             <h2>Мой профиль</h2>
             <div>
                 <ul>

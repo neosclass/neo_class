@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import axios from 'axios';
 import Header from "./UI/header/Header";
 import { useNavigate } from "react-router-dom";
+import { HeaderMegaMenu } from "./HeaderMegaMenu/HeaderMegaMenu";
 
 const Login = () => {
         const navigate = useNavigate()
@@ -35,7 +36,7 @@ const Login = () => {
         return (
 
             <div>
-                <Header/>
+                <HeaderMegaMenu/>
                     <form onSubmit={handleSubmit}>
                         <input
                         type="email"

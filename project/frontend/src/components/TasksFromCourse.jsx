@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useParams } from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import Header from "./UI/header/Header";
+import { HeaderMegaMenu } from "./HeaderMegaMenu/HeaderMegaMenu";
 
 const TasksFromCourse = ({ match }) => {
     const { course_id } = useParams();
@@ -83,7 +84,7 @@ const TasksFromCourse = ({ match }) => {
 
     return (
       <div>
-          <Header />
+          <HeaderMegaMenu/>
         
         <h1>Код курса: {course_id}</h1>
         <div>
