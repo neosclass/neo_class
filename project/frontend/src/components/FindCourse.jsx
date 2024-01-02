@@ -1,7 +1,7 @@
 import { HeaderMegaMenu } from "./HeaderMegaMenu/HeaderMegaMenu";
 import { FooterCentered } from "./FooterCentered/FooterCentered";
 import { Paper } from "@mantine/core";
-import { InputFindCourse } from "./InputWithButtons/InputFindCourse";
+import { InputFindCourse } from "./InputFindCourse/InputFindCourse";
 import { Container } from "@mantine/core";
 
 
