@@ -5,7 +5,8 @@ import {useNavigate} from "react-router-dom";
 import Header from "./UI/header/Header";
 import { HeaderMegaMenu } from "./HeaderMegaMenu/HeaderMegaMenu";
 import { FooterCentered } from "./FooterCentered/FooterCentered";
-import { Paper } from "@mantine/core";
+import { Paper, Table } from "@mantine/core";
+import { TableOfTasks } from "./TableOfTasks/TableOfTasks";
 
 const TasksFromCourse = ({ match }) => {
     const { course_id } = useParams();
@@ -93,6 +94,10 @@ const TasksFromCourse = ({ match }) => {
     return (
       <div>
           <HeaderMegaMenu/>
+
+          <div>
+            <TableOfTasks/>
+          </div>
         
         <h1>Код курса: {course_id}</h1>
         <div>
