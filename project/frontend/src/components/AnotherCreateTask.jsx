@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import Header from "./UI/header/Header";
 import axios from "axios";
+import { Paper } from "@mantine/core";
 
 const handleFileUpload = (file) => {
     const formData = new FormData();

@@ -3,6 +3,8 @@ import axios from 'axios';
 import Header from "./UI/header/Header";
 import { useNavigate } from "react-router-dom";
 import { HeaderMegaMenu } from "./HeaderMegaMenu/HeaderMegaMenu";
+import { FooterCentered } from "./FooterCentered/FooterCentered";
+import { Paper } from "@mantine/core";
 
 const Registration = () => {
         const navigate = useNavigate()
@@ -10,6 +12,13 @@ const Registration = () => {
         const HomePage = () => {
           navigate('/')
         }
+
+
+    const containerStyles = {
+      position: 'fixed',
+      bottom: 0,
+      width: '100%',
+    };
 
         const [formData, setFormData] = useState({
           name: '',
@@ -75,6 +84,13 @@ const Registration = () => {
                         <button type="submit">Submit</button>
                     </form>
 
+
+
+                    <div>
+                <Paper style={containerStyles}>
+                    <FooterCentered/>
+                </Paper>
+            </div>
           </div>
       
     );

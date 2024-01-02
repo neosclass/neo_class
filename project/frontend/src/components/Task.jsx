@@ -6,6 +6,8 @@ import DownloadButton from "./UI/DownloadButton/DownloadButton";
 import Header from "./UI/header/Header";
 import MyComponent from "./utils/dataArray";
 import { HeaderMegaMenu } from "./HeaderMegaMenu/HeaderMegaMenu";
+import { FooterCentered } from "./FooterCentered/FooterCentered";
+import { Paper } from "@mantine/core";
 
 const Task = () => {
 
@@ -96,6 +98,12 @@ const Task = () => {
       window.location.reload();
 
     };
+
+    const containerStyles = {
+      position: 'fixed',
+      bottom: 0,
+      width: '100%',
+    };
   
   
   
@@ -155,6 +163,13 @@ const Task = () => {
 
             <div>
                 <button onClick={HomePage}>Главная страница</button>
+            </div>
+
+
+            <div>
+                <Paper style={containerStyles}>
+                    <FooterCentered/>
+                </Paper>
             </div>
     </div>
   );

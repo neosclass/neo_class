@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import {useNavigate} from "react-router-dom";
 import Header from "./UI/header/Header";
 import { HeaderMegaMenu } from "./HeaderMegaMenu/HeaderMegaMenu";
+import { FooterCentered } from "./FooterCentered/FooterCentered";
+import { Paper } from "@mantine/core";
 
 const TasksFromCourse = ({ match }) => {
     const { course_id } = useParams();
@@ -16,6 +18,12 @@ const TasksFromCourse = ({ match }) => {
     const [course_creator, setCreator] = useState([])
 
     const [userData, setUserData] = useState(0);
+
+    const containerStyles = {
+      position: 'fixed',
+      bottom: 0,
+      width: '100%',
+    };
 
 
     const HomePage = () => {
@@ -104,6 +112,12 @@ const TasksFromCourse = ({ match }) => {
         <div>
           <button onClick={HomePage}>Главная страница</button>
         </div>
+
+        <div>
+                <Paper style={containerStyles}>
+                    <FooterCentered/>
+                </Paper>
+            </div>
       </div>
     );
   };

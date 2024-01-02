@@ -3,6 +3,8 @@ import Header from "./UI/header/Header";
 import axios from "axios";
 import { useNavigate} from "react-router-dom";
 import { HeaderMegaMenu } from "./HeaderMegaMenu/HeaderMegaMenu";
+import { FooterCentered } from "./FooterCentered/FooterCentered";
+import { Paper } from "@mantine/core";
 
 const MyProfile = (props) => {
       const navigate = useNavigate()
@@ -16,6 +18,12 @@ const MyProfile = (props) => {
       const NotLogin = () => {
         navigate("/notlogin")
       }
+
+      const containerStyles = {
+        position: 'fixed',
+        bottom: 0,
+        width: '100%',
+      };
 
 
       useEffect(() => {
@@ -70,6 +78,12 @@ const MyProfile = (props) => {
                 </ul>
 
                 <button onClick={HandleButton}>Выйти из аккаунта</button>
+            </div>
+
+            <div>
+                <Paper style={containerStyles}>
+                    <FooterCentered/>
+                </Paper>
             </div>
         </div>
     );

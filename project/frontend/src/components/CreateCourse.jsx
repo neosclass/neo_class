@@ -3,6 +3,8 @@ import Header from "./UI/header/Header";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { HeaderMegaMenu } from "./HeaderMegaMenu/HeaderMegaMenu";
+import { FooterCentered } from "./FooterCentered/FooterCentered";
+import { Paper } from "@mantine/core";
 
 const CreateCourse = () => {
     const navigate = useNavigate()
@@ -40,6 +42,13 @@ const CreateCourse = () => {
       };
 
 
+    const containerStyles = {
+      position: 'fixed',
+      bottom: 0,
+      width: '100%',
+    };
+
+
 
     return (
         <div>
@@ -62,7 +71,16 @@ const CreateCourse = () => {
                         />
                         <button type="submit">Submit</button>
             </form>
+
+
+            <div>
+                <Paper style={containerStyles}>
+                    <FooterCentered/>
+                </Paper>
+            </div>
         </div>
+
+        
     );
 };
 

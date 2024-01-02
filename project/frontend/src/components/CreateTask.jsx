@@ -4,6 +4,8 @@ import {useNavigate} from "react-router-dom";
 import Header from "./UI/header/Header";
 import axios from "axios";
 import { HeaderMegaMenu } from './HeaderMegaMenu/HeaderMegaMenu';
+import { FooterCentered } from './FooterCentered/FooterCentered';
+import { Paper } from "@mantine/core";
 
 
 function CreateTask() {
@@ -14,6 +16,13 @@ function CreateTask() {
     const [files, setFile] = useState(null);
     const [title, setTitle] = useState('');
     const [description, setDescription] = useState('');
+
+
+    const containerStyles = {
+      position: 'fixed',
+      bottom: 0,
+      width: '100%',
+    };
   
     const handleFileChange = (e) => {
       setFile(e.target.files[0]);
@@ -51,6 +60,12 @@ function CreateTask() {
         <input type="text" value={description} onChange={(e) => setDescription(e.target.value)} placeholder="Описание" />
         <button type="submit">Отправить</button>
       </form>
+
+      <div>
+                <Paper style={containerStyles}>
+                    <FooterCentered/>
+                </Paper>
+            </div>
       </div>
     );
   };
