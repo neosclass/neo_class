@@ -1,10 +1,10 @@
 import React, {useState} from "react";
 import axios from 'axios';
-import Header from "./UI/header/Header";
 import { useNavigate } from "react-router-dom";
 import { HeaderMegaMenu } from "./HeaderMegaMenu/HeaderMegaMenu";
 import { FooterCentered } from "./FooterCentered/FooterCentered";
 import { Paper } from "@mantine/core";
+import { AuthForm } from "./AuthForm/AuthForm";
 
 const Login = () => {
         const navigate = useNavigate()
@@ -45,23 +45,10 @@ const Login = () => {
 
             <div>
                 <HeaderMegaMenu/>
-                    <form onSubmit={handleSubmit}>
-                        <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="Email"
-                        />
-                        <input
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        placeholder="Password"
-                        />
-                        <button type="submit">Submit</button>
-                    </form>
+
+                <div>
+                  <AuthForm/>
+                </div>
 
                     <div>
                 <Paper style={containerStyles}>
