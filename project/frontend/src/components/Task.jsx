@@ -10,6 +10,7 @@ import { FooterCentered } from "./FooterCentered/FooterCentered";
 import { Container, Paper } from "@mantine/core";
 import { TaskInfo } from "./TaskInfo/TaskInfo";
 import { CommentHtml } from "./CommentsTask/CommentsTask";
+import { CommentCard } from "./CommentCard/CommentCard";
 
 const Task = () => {
 
@@ -142,42 +143,12 @@ const Task = () => {
           </div>
 
 
-          
-            <div key={data.id}>
-              <h2>Название: {data.title}</h2>
-              <h3>Описание: {data.description}</h3>
-            </div>
-
           <div>
-            <DownloadButton />
-          </div>
-          
-          <div>
-            <textarea value={datas} onChange={(e) => setText(e.target.value)} />
-            <button onClick={handleSubmit}>Добавить комментарий</button>
+            <Container h={400}>
+                <CommentHtml/>
+            </Container>
           </div>
 
-          <div>
-              {course_creator.created_by == userData.user_id ? allComments.map(item => (
-                    <div key={item.id}>
-                      <h2>Комментатор: {item.user_id}</h2>
-                      <h3>Комментарий: {item.data}</h3>
-                    </div>
-                    
-                )) : allComments.filter(comment => comment.user_id == userData.user_id).map(item => (
-                  <div key={item.id}>
-                    <h2>Комментатор: {item.user_id}</h2>
-                    <h3>Комментарий: {item.data}</h3>
-                  </div>))}
-    
-          </div>
-
-
-            <div>
-                <Paper style={containerStyles}>
-                    <FooterCentered/>
-                </Paper>
-            </div>
     </div>
   );
 };

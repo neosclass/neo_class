@@ -1,4 +1,4 @@
-import { Card, Image, Text, Group, Badge, Center, Button, Paper, Textarea } from '@mantine/core';
+import { Card, Image, Text, Group, Badge, Center, Button, Paper, Textarea, Container } from '@mantine/core';
 import { IconGasStation, IconGauge, IconManualGearbox, IconUsers } from '@tabler/icons-react';
 import classes from './TaskInfo.module.css';
 import React, {useState, useEffect} from "react";
@@ -142,7 +142,7 @@ export function TaskInfo() {
             </Card.Section>
             </Card>
 
-
+          <Container h={200}>
             <Textarea
                     value={datas}
                     onChange={(e) => setText(e.target.value)}
@@ -150,10 +150,11 @@ export function TaskInfo() {
                     placeholder="Ваш комментарий"
             />
         <Button onClick={handleSubmit}>Добавить комментарий</Button>
+        </Container>
 
-    <div>
-      <CommentHtml/>
-    </div>
+        
+
+
 
     </div>
   );
