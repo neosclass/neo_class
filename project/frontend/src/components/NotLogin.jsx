@@ -3,7 +3,7 @@ import Header from "./UI/header/Header";
 import { useNavigate } from "react-router-dom";
 import { HeaderMegaMenu } from "./HeaderMegaMenu/HeaderMegaMenu";
 import { FooterCentered } from "./FooterCentered/FooterCentered";
-import { Paper } from "@mantine/core";
+import { Paper, Text, Button } from "@mantine/core";
 
 const NotLogin = (props) => {
     const navigate = useNavigate()
@@ -11,6 +11,10 @@ const NotLogin = (props) => {
 
     const HomePage = () => {
         window.location.href = '/'
+    }
+
+    const login = () => {
+        navigate('/auth/login')
     }
 
 
@@ -23,8 +27,10 @@ const NotLogin = (props) => {
     return (
         <div>
             <HeaderMegaMenu/>
-            <h1>Вы не вошли в свой аккаунт. Сделайте это на главной странице</h1>
-            <button onClick={HomePage}>Главная страница</button>
+            <Paper style={{ textAlign: 'center', padding: 200 }}>
+                <Text style={{ fontSize: '50px' }} fw={700}>Чтобы посетить данный ресурс вы должны быть авторизованы</Text>
+                <Button onClick={login}>Войти в аккаунт</Button>
+            </Paper>
 
             <div>
                 <Paper style={containerStyles}>
