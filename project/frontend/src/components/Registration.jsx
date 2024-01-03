@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import { HeaderMegaMenu } from "./HeaderMegaMenu/HeaderMegaMenu";
 import { FooterCentered } from "./FooterCentered/FooterCentered";
 import { Paper } from "@mantine/core";
+import { RegisterForm } from "./RegisterForm/RegisterForm";
 
 const Registration = () => {
         const navigate = useNavigate()
@@ -52,6 +53,11 @@ const Registration = () => {
             <div>
                 <HeaderMegaMenu/>
 
+
+
+                <div>
+                  <RegisterForm/>
+                </div>
                     <form onSubmit={handleSubmit}>
                         <input
                         type="text"
