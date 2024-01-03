@@ -16,6 +16,13 @@ from project.backend.app.config import JWT_SECRET
 router = APIRouter(prefix='/users', tags=['Users'])
 
 
+@router.get('/user/{user_id}', status_code=status.HTTP_200_OK, response_model=UserSchema)
+async def get_current_user_private_info(user_id: int, user_service: Annotated[UserService, Depends(users_service)],
+                                        user: User = Depends(get_current_user)):
+    result = await user_service.get_private_profile(id=user_id)
+    return result
+
+
 @router.get('/profile', status_code=status.HTTP_200_OK, response_model=UserSchema)
 async def get_current_user_private_info(user_service: Annotated[UserService, Depends(users_service)],
                                         user: User = Depends(get_current_user)):
