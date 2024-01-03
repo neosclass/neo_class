@@ -58,39 +58,6 @@ const Registration = () => {
                 <div>
                   <RegisterForm/>
                 </div>
-                    <form onSubmit={handleSubmit}>
-                        <input
-                        type="text"
-                        name="name"
-                        value={formData.username}
-                        onChange={handleChange}
-                        placeholder="Username"
-                        />
-                        <input
-                        type="text"
-                        name="surname"
-                        value={formData.username}
-                        onChange={handleChange}
-                        placeholder="Username"
-                        />
-                        <input
-                        type="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        placeholder="Email"
-                        />
-                        <input
-                        type="password"
-                        name="password"
-                        value={formData.password}
-                        onChange={handleChange}
-                        placeholder="Password"
-                        />
-                        <button type="submit">Submit</button>
-                    </form>
-
-
 
                     <div>
                 <Paper style={containerStyles}>
