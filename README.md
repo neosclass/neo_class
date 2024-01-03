@@ -11,6 +11,7 @@
 `` commands
 * The project is available at http://localhost:8000/
 * The MinIO console is available at http://localhost:9001/
+* ``npm run dev`` in project/frontend for start front
 
 ---
 Use flake8 ``flake8 --config .flake8 .``
